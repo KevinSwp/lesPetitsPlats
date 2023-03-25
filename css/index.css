@@ -1,6 +1,15 @@
+body {
+    padding: 2rem;
+}
+
 .homePage {
     display: block;
     width: 25%;
     margin: auto;
     padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.titleRecipe {
+    font-size: 1rem;
 }

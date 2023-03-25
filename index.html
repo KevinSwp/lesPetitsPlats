@@ -7,6 +7,8 @@
     <link rel="icon" type="image/png" href="assets/logo/icon.jpg">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
     <header>
@@ -14,7 +16,15 @@
     </header>
 
     <main id="main">
-      <div class="searchBarSection"></div>
+      <div  id="searchBarSection" class="searchBarSection"></div>
+      
+      <div class="tags-list">
+        <div class="search-tag search-tag--ingredients"></div>
+        <div class="search-tag search-tag--ustenstils"></div>
+        <div class="search-tag search-tag--ingredientsmateriels"></div>
+      </div>
+
+      <div class="recipes-list"></div>
     </main>
 
     <script type="module" src="scripts/controllers/index_action.js"></script>
