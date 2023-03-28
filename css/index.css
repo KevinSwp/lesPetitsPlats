@@ -1,15 +1,86 @@
 body {
-    padding: 2rem;
+    padding: 5rem;
 }
 
 .homePage {
     display: block;
     width: 25%;
     margin: auto;
-    padding-top: 30px;
     padding-bottom: 30px;
+}
+
+.bouton-group {
+    margin-bottom: 30px;
+}
+
+.formSearchBar {
+    position: relative;
+    display: flex;
+}
+
+.searchBarSection {
+    padding-bottom: 30px;
+}
+
+.searchInput {
+    width: 100%;
+    height: 50px;
+    padding-left: 15px;
+    background-color: lightgray;
+    border: 0;
+    border-radius: 0.3rem;
+}
+
+.magnifying_glass {
+    width: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+}
+
+.recipes-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.figureRecipe {
+    width: calc(100% / 3 - 30px);
+    border-radius: 5px;
+    background-color: gainsboro;
+    margin-bottom: 40px;
+}
+
+.imageRecipe {
+    width: 100%;
+    height: 10rem;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.title_time {
+    display: flex;
+    justify-content: space-between;
 }
 
 .titleRecipe {
     font-size: 1rem;
+}
+
+.ingredients_description {
+    display: flex;
+    font-size: 0.5rem;
+}
+
+.ingredient {
+    display: flex;
+    width: 200px;
+}
+
+.description {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
