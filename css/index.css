@@ -9,8 +9,95 @@ body {
     padding-bottom: 30px;
 }
 
-.bouton-group {
-    margin-bottom: 30px;
+.filter {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown {
+    top: -0.5rem;
+    position: absolute;
+}
+
+
+.dropdown.active1 .selectedActive{
+    border-radius: 5px 5px 0 0;
+}
+
+.dropdown.active1 .selectedActive::before{
+    content:'';
+    width: 163px;
+    height:1px;
+    margin-left: 0.5rem;
+    background:white;
+    position: absolute;
+    bottom:0;
+    left:0;
+}
+
+.btnDropdown {
+    width: 180px;
+    height: 40px;
+    background-color: blue;
+    border: 0;
+    border-radius: 5px;
+    position: relative;
+    color:white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 25px;
+    cursor: pointer;
+}
+
+.dropdown_content {
+    display: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.dropdown .btnDropdown span {
+    display: block;
+} 
+
+.svgIcon .svgDisable{
+    width:20px;
+    height:20px;
+    fill:white;
+    transform: rotate(180deg);
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+.svgIcon .svgEnable{
+    width:20px;
+    height:20px;
+    fill:white;
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+
+.item {
+    width: 180px;
+    height: 40px;
+    background-color: blue;
+    border: 0;
+    position: relative;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+.item:hover {
+    background-color: rgba(0, 89, 255, 0.424);
+    color: black;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .formSearchBar {
@@ -43,6 +130,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    margin-top: 7rem;
 }
 
 .figureRecipe {

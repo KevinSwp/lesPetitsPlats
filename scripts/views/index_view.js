@@ -3,23 +3,27 @@ export default class IndexView {
         this._recipe = recipe;
     }
 
-    //Function content home page
-    getDropdownFilter = () => {
-        // Create article element in the DOM
+    //Function content filter
+    getFilter = () => {
+        //Create div element in the DOM
         const div = document.createElement('div');
-        // Fill the DOM
+        div.classList.add("filter");
+        //Fill the DOM
         div.innerHTML = `
-        <div class="btn-group bouton-group">
-            <button type="button" class="btn btn-primary btn-lg dropdown-toggle">
-                Ingredients
-            </button>
-            <button type="button" class="btn btn-success btn-lg dropdown-toggle">
-                appareils
-            </button>
-            <button type="button" class="btn btn-danger btn-lg dropdown-toggle">
-                Ustensiles
-            </button>
-        </div>
+            <div role="menu" class="dropdown">
+                <button id="selected" class="btnDropdown">
+                    <span id="selectedText">Ingredients</span>
+                    <span class="svgIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
+                            <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+                        </svg>
+                    </span>
+                </button>
+
+                <div class="dropdown_content">
+                    <button class="item">Coco</button>
+                </div>
+            </div>
         `;
 
         return div;
