@@ -13,9 +13,6 @@ const filter = document.getElementById("dropdownFilter");
 const searchBarSection = document.getElementById("searchBarSection");
 const recipeSection = document.querySelector(".recipes-list");
 
-// Array tags
-let selectIngredientsTags = [];
-
 /**
  * Reset la liste des recettes
  */
@@ -69,58 +66,89 @@ const displaySearchRecipes = (recipes, searchText) => {
     });
 };
 
+/*const filterDropdownRecipes = (recipes) => {
+    const searchInput = document.querySelector("#searchBarSection input");
+    searchInput.addEventListener("input", () => {
+        const searchText = searchInput.value.toLowerCase().trim();
+
+        const filteredRecipes = recipes.filter((recipeData) => {
+            const recipeTitle = recipeData.name.toLowerCase();
+            const recipeDescription = recipeData.description.toLowerCase();
+            return recipeTitle.includes(searchText) || recipeDescription.includes(searchText);
+        });
+
+        const dropdownContent = document.querySelector(".dropdown_content");
+        dropdownContent.innerHTML = "";
+
+        filteredRecipes.forEach((recipeData) => {
+            const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
+            const recipeName = recipe.name;
+            const recipeLink = document.createElement("a");
+            recipeLink.classList.add("item");
+            recipeLink.textContent = recipeName;
+            dropdownContent.appendChild(recipeLink);
+        });
+    });
+};*/
+
+/**
+ * Display all recipes
+ */
+const sdisplayAllRecipes = (recipes) => {
+    recipes.forEach((recipeData) => {
+        // Build recipe object from data
+        const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
+        // Build and display the recipe card
+        const recipeCardView = new IndexView(recipe);
+        const recipeCard = recipeCardView.getRecipeCardIndex();
+        recipeSection.appendChild(recipeCard);
+    });
+};
+
 /**
  * Display dropdown
- */
-const displayDropdown = () => {
+*/
+const displayDropdown = (recipes) => {
     const objectIndexView = new IndexView();
     const dropdown = objectIndexView.getFilter();
     filter.appendChild(dropdown);
+    
+    /*const dropdownContent = document.querySelector(".dropdown_content");
+
+    recipes.forEach(recipeData => {
+        const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
+        recipe.ingredients.forEach(ingredient => {
+            dropdownContent.innerHTML += `<button>${ingredient.ingredient}</button>`;
+        });
+    });*/
+    const searchInput = document.getElementById("searchFilter");
+    const dropdownContent = document.querySelector(".dropdown_content");
+
+    searchInput.addEventListener("input", () => {
+        const searchKeyword = searchInput.value.toLowerCase();
+        // dropdownContent.innerHTML = "";
+        recipes.forEach(recipeData => {
+            const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
+            recipe.ingredients.forEach(ingredient => {
+                if (ingredient.ingredient.toLowerCase().includes(searchKeyword)) {
+                    dropdownContent.innerHTML += `<button>${ingredient.ingredient}</button>`;
+                }
+
+                else {
+                    dropdownContent.innerHTML += `<button>${ingredient.ingredient}</button>`;
+
+                }
+            });
+        });
+    });
 
     // Init svg
     const svg = document.querySelector(".svgIcon svg");
     svg.classList.add("svgDisable");
     // Add listeners on filters
     document.getElementById("selected").addEventListener("click", showFilterDropdown);
+
 };
-
-const getRecipes = () => {
-
-    //  1- fetch
-    // 2- Convertie en objet avec la factory
-
-    return recipes
-}
-
-/**
- * On trie la liste des recipes et retourne uniquement les recettes qui matches
- */
-const sortAll = (recipes) => {
-
-    // 1èere fonction : trie en fonction des mots clés
-    const L1 = sortByKeywords(recipes)
-    const L2 = sortByIngredientsTags(L1)   
-    const L3 = sortByUstensilsTags(L2)   
-    const L4 = sortByMaterielsTags(L3)   
- 
-    // On a toutes les recettes qui matchent avec tous les filtres
-    return L4
-}
-
-const sortByIngredientsTags = (recipes) => {
-
-    // On récupère les tags sélectionné depuis selectIngredientsTags 
-
-    return recipes
-}
-
-/**
- * Mise à jour de l'affichage 
- */
-const updateDisplayRecipes = (recipes) => {
-    resetDisplayRecipes()
-    displayNewRecipes(recipes)
-}
 
 const sortByKeywords = (recipes) => {
     // Filter recipes from search bar
@@ -133,14 +161,6 @@ const sortByKeywords = (recipes) => {
 
         // Display filtered recipes
         displaySearchRecipes(recipes, searchText);
-
-        // 1- Fetch des recettes
-        // 2- SortAll
-        // 3- Affiches
-
-        //const recipes = getRecipes()
-        //const recipesSorted = sortAll(recipes)
-        //updateDisplayRecipes(recipesSorted);
     });
 }
 
@@ -155,16 +175,13 @@ const init = () => {
             const { recipes } = data;
 
             // Display dropdown
-            displayDropdown();
+            displayDropdown(recipes);
             // Display search bar
             displaySearchBar();
             // Display all recipes
             displayAllRecipes(recipes);
             sortByKeywords(recipes);
 
-            
-            //const recipes = getRecipes()
-            // updateDisplayRecipes(recipes);
         })
         .catch((error) => {
             console.error(`Error fetching data: ${error}`);
