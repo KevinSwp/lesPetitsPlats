@@ -9,6 +9,10 @@ body {
     padding-bottom: 30px;
 }
 
+#tagsFilter {
+    margin-bottom: 30px;
+}
+
 .filter {
     display: flex;
     position: absolute;

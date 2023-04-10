@@ -66,44 +66,17 @@ const displaySearchRecipes = (recipes, searchText) => {
     });
 };
 
-/*const filterDropdownRecipes = (recipes) => {
-    const searchInput = document.querySelector("#searchBarSection input");
-    searchInput.addEventListener("input", () => {
-        const searchText = searchInput.value.toLowerCase().trim();
-
-        const filteredRecipes = recipes.filter((recipeData) => {
-            const recipeTitle = recipeData.name.toLowerCase();
-            const recipeDescription = recipeData.description.toLowerCase();
-            return recipeTitle.includes(searchText) || recipeDescription.includes(searchText);
-        });
-
-        const dropdownContent = document.querySelector(".dropdown_content");
-        dropdownContent.innerHTML = "";
-
-        filteredRecipes.forEach((recipeData) => {
-            const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
-            const recipeName = recipe.name;
-            const recipeLink = document.createElement("a");
-            recipeLink.classList.add("item");
-            recipeLink.textContent = recipeName;
-            dropdownContent.appendChild(recipeLink);
-        });
-    });
-};*/
-
 /**
- * Display all recipes
+ * Delete tag on click
  */
-const sdisplayAllRecipes = (recipes) => {
-    recipes.forEach((recipeData) => {
-        // Build recipe object from data
-        const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
-        // Build and display the recipe card
-        const recipeCardView = new IndexView(recipe);
-        const recipeCard = recipeCardView.getRecipeCardIndex();
-        recipeSection.appendChild(recipeCard);
+const deleteTags = () => {
+    document.querySelectorAll("#tagsFilter button").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        button.parentNode.removeChild(button);
+        // document.querySelector(".dropdown_content").appendChild(event.target);
+      });
     });
-};
+  };
 
 /**
  * Display dropdown
@@ -112,32 +85,27 @@ const displayDropdown = (recipes) => {
     const objectIndexView = new IndexView();
     const dropdown = objectIndexView.getFilter();
     filter.appendChild(dropdown);
-    
-    /*const dropdownContent = document.querySelector(".dropdown_content");
 
-    recipes.forEach(recipeData => {
-        const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
-        recipe.ingredients.forEach(ingredient => {
-            dropdownContent.innerHTML += `<button>${ingredient.ingredient}</button>`;
-        });
-    });*/
     const searchInput = document.getElementById("searchFilter");
     const dropdownContent = document.querySelector(".dropdown_content");
-
+    
     searchInput.addEventListener("input", () => {
         const searchKeyword = searchInput.value.toLowerCase();
-        // dropdownContent.innerHTML = "";
+        dropdownContent.innerHTML = "";
         recipes.forEach(recipeData => {
             const recipe = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
             recipe.ingredients.forEach(ingredient => {
                 if (ingredient.ingredient.toLowerCase().includes(searchKeyword)) {
                     dropdownContent.innerHTML += `<button>${ingredient.ingredient}</button>`;
-                }
-
-                else {
+                } else {
                     dropdownContent.innerHTML += `<button>${ingredient.ingredient}</button>`;
-
                 }
+            });
+        });
+        const buttons = document.querySelectorAll(".dropdown_content button");
+        buttons.forEach(button => {
+            button.addEventListener("click", (event) => {
+                document.querySelector("#tagsFilter").appendChild(event.target);
             });
         });
     });
@@ -174,6 +142,8 @@ const init = () => {
         .then((data) => {
             const { recipes } = data;
 
+            // Delete tags
+            deleteTags();
             // Display dropdown
             displayDropdown(recipes);
             // Display search bar
