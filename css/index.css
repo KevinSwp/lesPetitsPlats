@@ -24,7 +24,6 @@ body {
     position: absolute;
 }
 
-
 .dropdown.active1 .selectedActive{
     border-radius: 5px 5px 0 0;
 }
