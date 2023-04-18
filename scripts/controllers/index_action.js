@@ -1,12 +1,12 @@
 /**
- * Import
+ * Import required modules and components
 */
 import RecipeFactory from "../factories/RecipeFactory.js";
 import { RECIPE_TYPES } from "../factories/RecipeFactory.js";
 import IndexView from "../views/index_view.js";
 import { showFilterDropdown } from "../utils/filters.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+
     /**
      * Select elements from DOM
      */
@@ -14,7 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchBarSection = document.getElementById("searchBarSection");
     const recipeSection = document.querySelector(".recipes-list");
 
+    /**
+     * Fetch all recipes and create RecipeFactory objects from them
+     */
     const getAllRecipes = async () => {
+
+
         try {
             const response = await fetch("data/recipes.json");
             const data = await response.json();
@@ -23,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             return recipeObjects;
         }
+
         catch (error) {
             console.error(`Error fetching data: ${error}`);
             throw error;
@@ -37,15 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const searchBar = searchBarView.getSearchBar();
         searchBarSection.appendChild(searchBar);
 
-        // On ajoute le listener sur la search bar
+        // Add listener to the search bar
         searchBar.addEventListener("input", async () => {
-            const allRecipes = await getAllRecipes();
-            const recipes = sortAll(allRecipes);
-            displayAllRecipes(recipes);
-            // displayDropdownIngredient(recipes);
+
+            // Get all recipes
+            let recipes = await getAllRecipes();
+    
+            console.log(recipes)
+            // Sort all recipes by keyword, tags 
+             recipes =  sortAll(recipes);
+
+            displayAll(recipes)
+            // Reset and display recipes cards
+            //displayAllRecipes(recipes);
+    
+            // Display dropdown
+            //displayDropdownIngredient(recipes);
         });
     };
 
+    /**
+     * Filter recipes based on search bar input
+     */
     const sortByKeywords = (recipes) => {
         // Filter recipes from search bar
         const searchInput = document.querySelector("#searchBarSection input");
@@ -74,9 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return recipesOK;
     };
 
-    const filterByDropdownSelection = (recipes) => {
-        const selectedTags = Array.from(document.querySelectorAll("#tagsFilter button"))
-            .map(tagButton => tagButton.textContent.toLowerCase());
+    /**
+     *  Filter recipes based on dropdown ingredient
+     */
+    const filterByDropdownIngredient = (recipes) => {
+        const selectedTags = Array
+        .from(document.querySelectorAll("#tagsFilter button"))
+        .map(tagButton => tagButton.textContent.toLowerCase());
     
         if (selectedTags.length === 0) {
             return recipes;
@@ -84,17 +107,40 @@ document.addEventListener("DOMContentLoaded", () => {
     
         return recipes.filter(recipe => {
             const recipeIngredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+            
             return selectedTags.every(tag => recipeIngredients.includes(tag));
         });
     };
 
-    const sortAll = async (recipesPromise) => {
-        const recipes = await recipesPromise;
-        const filteredByKeywords = sortByKeywords(recipes);
-        const filteredByDropdownSelection = filterByDropdownSelection(filteredByKeywords);
+    //function filter materiel
+
+    //function filter ustensil
+
+    /**
+     * Function to sort all recipes by keywords and dropdown selection
+     */
+    const sortAll =  (recipes) => {
+
+        recipes = sortByKeywords(recipes);
+        recipes = filterByDropdownIngredient(recipes);
+        //const filteredByKeywords = sortByKeywords(recipes);
+        //const filteredByDropdownSelection = filterByDropdownIngredient(filteredByKeywords);
+        //materiel
+        //ustensil
         
-        return filteredByDropdownSelection;
+        //return filteredByDropdownSelection;
+        return recipes
     };
+
+
+    /**
+     * 
+     */
+    const displayAll = (recipes) => {
+        displayAllRecipes(recipes)
+        displayDropdownIngredient(recipes)
+    }
+    
 
     /**
      * Reset la liste des recettes
@@ -103,10 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
         recipeSection.innerHTML = "";
     }
 
+
     /**
      * Display all recipes
      */
     const displayAllRecipes = (recipes) => {
+
+        // 
         resetDisplayRecipes();
 
         recipes.forEach((recipe) => {
@@ -121,15 +170,16 @@ document.addEventListener("DOMContentLoaded", () => {
  * Display dropdown
 */
 const displayDropdownIngredient = (recipes) => {
+    console.log('on display dropdown ingredient')
     const objectIndexView = new IndexView();
-    const dropdown = objectIndexView.getFilter();
+    const dropdown = objectIndexView.getFilterIngredient();
     filter.appendChild(dropdown);
 
     const searchInput = document.getElementById("searchFilter");
     const dropdownContent = document.querySelector(".dropdown_content");
     
-    // On affiche une première fois tous le monde qui match
     dropdownContent.innerHTML = "";
+    // remove duplicate tags from dropdown
     const uniqueIngredients = new Set();
     recipes.forEach(recipe => {
         recipe.ingredients.forEach(ingredient => {
@@ -141,30 +191,36 @@ const displayDropdownIngredient = (recipes) => {
         dropdownContent.innerHTML += `<button>${ingredient}</button>`;
     });
     
+    // Select button tag
     const buttons = document.querySelectorAll(".dropdown_content button");
+    // For each button
     buttons.forEach(button => {
         button.addEventListener("click", async (event) => {
-            // On l'ajoute dans tagsFilter
+            // Add button tags in section tags
             const newButton = document.createElement('button')
             newButton.textContent = event.target.textContent;
             document.querySelector("#tagsFilter").appendChild(newButton);
             
-            // On relance toutes les fonctons de trie
+            // Relaunch all sort function
             const allRecipes = await getAllRecipes();
-            const recipes = await sortAll(allRecipes);
+            const recipes = sortAll(allRecipes);
             displayAllRecipes(recipes);
             displayDropdownIngredient(recipes);  
         
             newButton.addEventListener('click', async () => {
-                // On supprime le bouton de tagsFilter
+                // Remove tag from tag section
                 newButton.remove();
                 const allRecipes = await getAllRecipes();
-                const recipes = await sortAll(allRecipes);
+                const recipes =  sortAll(allRecipes);
                 displayAllRecipes(recipes);
                 displayDropdownIngredient(recipes);  
             });
         });
     });
+
+    //dropdown materiel
+
+    //dropdown ustensil
 
     // Display matching ingredient from the search bar
     searchInput.addEventListener("input", () => {
@@ -182,7 +238,6 @@ const displayDropdownIngredient = (recipes) => {
         buttons.forEach(button => {
             button.addEventListener("click", (event) => {
                 document.querySelector("#tagsFilter").appendChild(event.target);
-                // Faire pareil que au-dessus
             });
         });
     });
@@ -191,30 +246,35 @@ const displayDropdownIngredient = (recipes) => {
     const svg = document.querySelector(".svgIcon svg");
     svg.classList.add("svgDisable");
     // Add listeners on filters
-    document.getElementById("selected").addEventListener("click", showFilterDropdown);
+    document.getElementById("selected").addEventListener("click", () => {
+        showFilterDropdown()
+    });
 
 };
-
 
     /**
      * Init
      */
     const init = async () => {
+
         // Display search bar
         displaySearchBar();
     
         // Get all recipes
-        const allRecipesPromise = getAllRecipes();
+        let recipes = await getAllRecipes();
+        //const allRecipesPromise = await getAllRecipes();
     
         // Sort all recipes by keyword, tags 
-        const recipes = await sortAll(allRecipesPromise);
-    
+        recipes =  sortAll(recipes);
+        //const recipes =  sortAll(allRecipesPromise);
+
+        displayAll(recipes)
+
         // Reset and display recipes cards
-        displayAllRecipes(recipes);
+        //displayAllRecipes(recipes);
     
         // Display dropdown
-        displayDropdownIngredient(recipes);
+        //displayDropdownIngredient(recipes);
     };
 
     init();
-});
