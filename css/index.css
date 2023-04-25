@@ -24,7 +24,23 @@ body {
     position: absolute;
 }
 
-.dropdown.active1 .selectedActive{
+.dropdownAppliance {
+    top: -0.5rem;
+    left: 13rem;
+    position: absolute;
+}
+
+.dropdownUstensil {
+    top: -0.5rem;
+    left: 26rem;
+    position: absolute;
+}
+
+/* .dropdown.active1 .selectedActive{
+    border-radius: 5px 5px 0 0;
+}
+
+.dropdownAppliance.active1 .selectedActive{
     border-radius: 5px 5px 0 0;
 }
 
@@ -38,6 +54,17 @@ body {
     bottom:0;
     left:0;
 }
+
+.dropdownAppliance.active1 .selectedActive::before{
+    content:'';
+    width: 163px;
+    height:1px;
+    margin-left: 0.5rem;
+    background:white;
+    position: absolute;
+    bottom:0;
+    left:0;
+} */
 
 .btnDropdown {
     width: 180px;
@@ -54,13 +81,66 @@ body {
     cursor: pointer;
 }
 
+.btnDropdownAppliance {
+    width: 180px;
+    height: 40px;
+    background-color: green;
+    border: 0;
+    border-radius: 5px;
+    position: relative;
+    color:white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 25px;
+    cursor: pointer;
+}
+
+.btnDropdownUstensil {
+    width: 180px;
+    height: 40px;
+    background-color: red;
+    border: 0;
+    border-radius: 5px;
+    position: relative;
+    color:white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 25px;
+    cursor: pointer;
+}
+
 .dropdown_content {
     display: none;
+    width: 35rem;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.dropdown_contentAppliance {
+    display: none;
+    width: 35rem;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.dropdown_contentUstensil {
+    display: none;
+    width: 35rem;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
 .dropdown .btnDropdown span {
+    display: block;
+}
+
+.dropdownAppliance .btnDropdownAppliance span {
+    display: block;
+}
+
+.dropdownUstensil .btnDropdownUstensil span {
     display: block;
 } 
 
@@ -73,7 +153,46 @@ body {
     top: 14px;
     right: 15px;
 }
+
+.svgIconAppliance .svgDisable{
+    width:20px;
+    height:20px;
+    fill:white;
+    transform: rotate(180deg);
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+
+.svgIconUstensil .svgDisable{
+    width:20px;
+    height:20px;
+    fill:white;
+    transform: rotate(180deg);
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+
 .svgIcon .svgEnable{
+    width:20px;
+    height:20px;
+    fill:white;
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+
+.svgIconAppliance .svgEnable{
+    width:20px;
+    height:20px;
+    fill:white;
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+
+.svgIconUstensil .svgEnable{
     width:20px;
     height:20px;
     fill:white;
@@ -103,9 +222,58 @@ body {
     cursor: pointer;
 }
 
-.formSearchBar {
+/* .formSearchBar {
     position: relative;
     display: flex;
+}
+
+.formSearchBarAppliance {
+    position: relative;
+    display: flex;
+}
+
+.formSearchBarUstensil {
+    position: relative;
+    display: flex;
+} */
+
+.formSearchBarFilter {
+    display: none;
+}
+
+.formSearchBarFilterAppliance {
+    display: none;
+}
+
+.formSearchBarFilterUstensil {
+    display: none;
+}
+
+.formSearchBarFilter input {
+    width: 35rem;
+    height: 50px;
+    padding-left: 15px;
+    background-color: lightgray;
+    border: 0;
+    border-radius: 0.3rem;
+}
+
+.formSearchBarFilterAppliance input {
+    width: 35rem;
+    height: 50px;
+    padding-left: 15px;
+    background-color: lightgray;
+    border: 0;
+    border-radius: 0.3rem;
+}
+
+.formSearchBarFilterUstensil input {
+    width: 35rem;
+    height: 50px;
+    padding-left: 15px;
+    background-color: lightgray;
+    border: 0;
+    border-radius: 0.3rem;
 }
 
 .searchBarSection {
@@ -167,6 +335,7 @@ body {
 .ingredient {
     display: flex;
     width: 200px;
+    height: 15px;
 }
 
 .description {
