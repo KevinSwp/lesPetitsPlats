@@ -96,54 +96,90 @@ import { showFilterDropdown, showFilterDropdownAppliance, showFilterDropdownUste
      *  Filter recipes based on dropdown ingredient
      */
     const filterByDropdownIngredient = (recipes) => {
-        const selectedTags = Array
-        .from(document.querySelectorAll("#tagsFilter button"))
-        .map(tagButton => tagButton.textContent.toLowerCase());
+        const tagButtons = document.querySelectorAll("#tagsFilter button");
+        const selectedTags = [];
+    
+        for (let i = 0; i < tagButtons.length; i++) {
+            selectedTags.push(tagButtons[i].textContent.toLowerCase());
+        }
     
         if (selectedTags.length === 0) {
             return recipes;
         }
     
-        return recipes.filter(recipe => {
-            const recipeIngredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
-            
-            return selectedTags.every(tag => recipeIngredients.includes(tag));
-        });
+        const filteredRecipes = [];
+    
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            const recipeIngredients = [];
+    
+            for (let j = 0; j < recipe.ingredients.length; j++) {
+                recipeIngredients.push(recipe.ingredients[j].ingredient.toLowerCase());
+            }
+    
+            let allTagsIncluded = true;
+    
+            for (let j = 0; j < selectedTags.length; j++) {
+                if (!recipeIngredients.includes(selectedTags[j])) {
+                    allTagsIncluded = false;
+                    break;
+                }
+            }
+    
+            if (allTagsIncluded) {
+                filteredRecipes.push(recipe);
+            }
+        }
+    
+        return filteredRecipes;
     };
 
     const filterByDropdownAppliance = (recipes) => {
-
         //
-        const selectedAppliances = Array
-          .from(document.querySelectorAll("#tagsFilter button"))
-          .map(applianceButton => applianceButton.textContent.toLowerCase());
-
-        if (selectedAppliances.length === 0) {
-          return recipes;
+        const selectedAppliances = [];
+        const applianceButtons = document.querySelectorAll("#tagsFilter button");
+        
+        for (let i = 0; i < applianceButtons.length; i++) {
+            selectedAppliances.push(applianceButtons[i].textContent.toLowerCase());
         }
-
+        
+        if (selectedAppliances.length === 0) {
+            return recipes;
+        }
+        
         return recipes.filter(recipe => {
-          const recipeAppliance = recipe.appliance.toLowerCase();
-      
-          return selectedAppliances.includes(recipeAppliance);
+            const recipeAppliance = recipe.appliance.toLowerCase();
+            let isApplianceIncluded = false;
+        
+            for (let i = 0; i < selectedAppliances.length; i++) {
+            if (selectedAppliances[i] === recipeAppliance) {
+                isApplianceIncluded = true;
+                break;
+            }
+            }
+        
+            return isApplianceIncluded;
         });
-      }
+    };
 
     const filterByDropdownUstensil = (recipes) => {
-        const selectedUstensil = Array
-          .from(document.querySelectorAll("#tagsFilter button"))
-          .map(ustensilButton => ustensilButton.textContent.toLowerCase());
-      
-        if (selectedUstensil.length === 0) {
-          return recipes;
+        const ustensilButtons = document.querySelectorAll("#tagsFilter button");
+        const selectedUstensil = [];
+        
+        for (let i = 0; i < ustensilButtons.length; i++) {
+            selectedUstensil.push(ustensilButtons[i].textContent.toLowerCase());
         }
-      
+        
+        if (selectedUstensil.length === 0) {
+            return recipes;
+        }
+        
         return recipes.filter(recipe => {
-          const recipeUstensil = recipe.appliance.toLowerCase();
-      
-          return selectedUstensil.includes(recipeUstensil);
+            const recipeUstensil = recipe.appliance.toLowerCase();
+            
+            return selectedUstensil.includes(recipeUstensil);
         });
-      }
+    };
 
     /**
      * Function to sort all recipes by keywords and dropdown selection
@@ -250,22 +286,31 @@ const displayDropdownIngredient = (recipes) => {
 
     // Display matching ingredient from the search bar
     searchInput.addEventListener("input", () => {
-        
+
         const searchKeyword = searchInput.value.toLowerCase();
         dropdownContent.innerHTML = "";
-        
-        const filteredIngredients = Array.from(uniqueIngredients).filter(ingredient => ingredient.includes(searchKeyword));
-    
-        filteredIngredients.forEach(ingredient => {
+
+        const uniqueIngredientsArray = Array.from(uniqueIngredients);
+        let filteredIngredients = [];
+
+        for (let i = 0; i < uniqueIngredientsArray.length; i++) {
+            if (uniqueIngredientsArray[i].includes(searchKeyword)) {
+                filteredIngredients.push(uniqueIngredientsArray[i]);
+            }
+        }
+
+        for (let i = 0; i < filteredIngredients.length; i++) {
+            const ingredient = filteredIngredients[i];
             dropdownContent.innerHTML += `<button>${ingredient}</button>`;
-        });
-    
+        }
+
         const buttons = document.querySelectorAll(".dropdown_content button");
-        buttons.forEach(button => {
-            button.addEventListener("click", (event) => {
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", (event) => {
                 document.querySelector("#tagsFilter").appendChild(event.target);
             });
-        });
+        }
     });
 
     // Init svg
@@ -333,18 +378,26 @@ const displayDropdownAppliance = (recipes) => {
         const searchKeyword = searchInput.value.toLowerCase();
         dropdownContent.innerHTML = "";
         
-        const filteredAppliances = Array.from(uniqueAppliances).filter(appliance => appliance.includes(searchKeyword));
-    
-        filteredAppliances.forEach(appliance => {
-            dropdownContent.innerHTML += `<button>${appliance}</button>`;
-        });
-    
+        const appliancesArray = Array.from(uniqueAppliances);
+        let filteredAppliances = [];
+
+        for (let i = 0; i < appliancesArray.length; i++) {
+            if (appliancesArray[i].includes(searchKeyword)) {
+                filteredAppliances.push(appliancesArray[i]);
+            }
+        }
+
+        for (let i = 0; i < filteredAppliances.length; i++) {
+            dropdownContent.innerHTML += `<button>${filteredAppliances[i]}</button>`;
+        }
+
         const buttons = document.querySelectorAll(".dropdown_contentAppliance button");
-        buttons.forEach(button => {
-            button.addEventListener("click", (event) => {
+        
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", (event) => {
                 document.querySelector("#tagsFilter").appendChild(event.target);
             });
-        });
+        }
     });
 
     // Init svg
@@ -414,18 +467,25 @@ const displayDropdownUstensil = (recipes) => {
         const searchKeyword = searchInput.value.toLowerCase();
         dropdownContent.innerHTML = "";
 
-        const filteredUstensils = Array.from(uniqueUstensils).filter(ustensil => ustensil.includes(searchKeyword));
+        const uniqueUstensilsArray = Array.from(uniqueUstensils);
+        const filteredUstensils = [];
 
-        filteredUstensils.forEach(ustensil => {
-            dropdownContent.innerHTML += `<button>${ustensil}</button>`;
-        });
+        for (let i = 0; i < uniqueUstensilsArray.length; i++) {
+            const ustensil = uniqueUstensilsArray[i];
+            if (ustensil.toLowerCase().includes(searchKeyword)) {
+                filteredUstensils.push(ustensil);
+                dropdownContent.innerHTML += `<button>${ustensil}</button>`;
+            }
+        }
 
         const buttons = document.querySelectorAll(".dropdown_contentUstensil button");
-        buttons.forEach(button => {
+
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
             button.addEventListener("click", (event) => {
                 document.querySelector("#tagsFilter").appendChild(event.target);
             });
-        });
+        }
     });
 
     // Init svg
