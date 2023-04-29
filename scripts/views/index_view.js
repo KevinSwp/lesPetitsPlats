@@ -58,10 +58,10 @@ export default class IndexView {
                 </div>
             </div>
         `;
-    
+
         return div;
     }
-    
+
     getFilterUstensil = () => {
         //Create div element in the DOM
         const div = document.createElement('div');
@@ -86,7 +86,7 @@ export default class IndexView {
                 </div>
             </div>
         `;
-    
+
         return div;
     }
 
@@ -112,67 +112,58 @@ export default class IndexView {
         // Create article element in the DOM
         const div = document.createElement('div');
         div.classList.add("figureRecipe");
-        if (!this._recipe.ingredients[0].unit) {
-            div.innerHTML = `
-                <figure>
-                    <img class="imageRecipe" src="../assets/images/recette.jpg">
-                    <figcaption>
-                        <div class="title_time">
-                            <h1 class="titleRecipe">${this._recipe.name}</h1>
-                            <p>${this._recipe.time} min</p>
-                        </div>
-                        <div class="ingredients_description">
-                            <div>
-                                <div class="ingredient">
-                                    <p>${this._recipe.ingredients[0].ingredient}:</p>
-                                    <p>${this._recipe.ingredients[0].quantity}</p>
-                                    <p>${this._recipe.ingredients[0].unit}</p>
-                                </div>
-                                <div class="ingredient">
-                                    <p>${this._recipe.ingredients[1].ingredient}</p>
-                                    <p>${this._recipe.ingredients[1].quantity}</p>
-                                    <p>${this._recipe.ingredients[1].unit}</p>
-                                </div>
-                                <div class="ingredient">
-                                    <p>${this._recipe.ingredients[2].ingredient}</p>
-                                    <p>${this._recipe.ingredients[2].quantity}</p>
-                                    <p>${this._recipe.ingredients[2].unit}</p>
-                                </div>
-                            </div>
-                            <p class="description">${this._recipe.description}</p>
-                        </div>
-                    </figcaption>
-                </figure>  
-            `;
-        }
-        else {
-            div.innerHTML = `
-                <figure>
-                    <img class="imageRecipe" src="../assets/images/recette.jpg">
-                    <figcaption>
-                        <div class="title_time">
-                            <h1 class="titleRecipe">${this._recipe.name}</h1>
-                            <p>${this._recipe.time} min</p>
-                        </div>
-                        <div class="ingredients_description">
-                            <div>
-                                <div class="ingredient">
-                                    <p>${this._recipe.ingredients[0].ingredient}:</p>
-                                    <p>${this._recipe.ingredients[0].quantity}</p>
-                                    <p>${this._recipe.ingredients[0].unit}</p>
-                                </div>
-                                <div class="ingredient">
-                                    <p>${this._recipe.ingredients[1].ingredient}:</p>
-                                    <p>${this._recipe.ingredients[1].quantity}</p>
-                                </div>
-                            </div>
-                            <p class="description">${this._recipe.description}</p>
-                        </div>
-                    </figcaption>
-                </figure>  
-            `;
-        }
-                    
+
+        let content = `
+            <figure>
+                <img class="imageRecipe" src="../assets/images/recette.jpg" alt="">
+                <figcaption>
+                    <div class="title_time">
+                        <h1 class="titleRecipe">${this._recipe.name}</h1>
+                        <p>${this._recipe.time} min</p>
+                    </div>
+                    <div class="ingredients_description">
+                        <div>`
+                            for (let i = 0; i < this._recipe.ingredients.length; i++) {
+                                content += `
+                                    <div className="ingredient">
+                                        <p>
+                                            <span>${this._recipe.ingredients[i].ingredient}:</span>
+                                            <span>${this._recipe.ingredients[i].quantity}</span>`
+
+                                            if (this._recipe.ingredients[i].unit) {
+                                                content += `<span>${this._recipe.ingredients[i].unit}</span>`
+                                            }
+
+                                        content += `</p>
+                                    </div>
+                                `;
+                            }
+
+                            const maxLength = 300;
+                            let myText = ''
+
+                            if (this._recipe.description.length > maxLength){
+                                myText = this._recipe.description.substring(0, maxLength).concat('...');
+                            }
+
+                            else {
+                                myText = this._recipe.description
+                            }
+                            /*// Version 2
+                            this._recipe.description.length > maxLength ?
+                                    myText = this._recipe.description.substring(0, maxLength).concat('...') :
+                                    myText = this._recipe.description*/
+
+                            content += `</div>
+
+                        <p class="description">${myText}</p>
+                    </div>
+                </figcaption>
+            </figure>
+        `;
+
+        div.innerHTML = content;
+
         return div;
     }
 

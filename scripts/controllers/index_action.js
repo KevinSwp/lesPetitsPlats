@@ -16,6 +16,10 @@ import { showFilterDropdown, showFilterDropdownAppliance, showFilterDropdownUste
     const searchBarSection = document.getElementById("searchBarSection");
     const recipeSection = document.querySelector(".recipes-list");
 
+    const listTagsIngredients = [];
+    const listTagsAppliance = [];
+    const listTagsUstensil = [];
+
     /**
      * Fetch all recipes and create RecipeFactory objects from them
      */
@@ -108,14 +112,16 @@ import { showFilterDropdown, showFilterDropdownAppliance, showFilterDropdownUste
     };
 
     const filterByDropdownAppliance = (recipes) => {
+
+        //
         const selectedAppliances = Array
           .from(document.querySelectorAll("#tagsFilter button"))
           .map(applianceButton => applianceButton.textContent.toLowerCase());
-      
+
         if (selectedAppliances.length === 0) {
           return recipes;
         }
-      
+
         return recipes.filter(recipe => {
           const recipeAppliance = recipe.appliance.toLowerCase();
       
@@ -146,7 +152,9 @@ import { showFilterDropdown, showFilterDropdownAppliance, showFilterDropdownUste
 
         recipes = sortByKeywords(recipes);
         recipes = filterByDropdownIngredient(recipes);
+
         recipes = filterByDropdownAppliance(recipes);
+
         recipes = filterByDropdownUstensil(recipes);
         
         return recipes
