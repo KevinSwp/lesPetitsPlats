@@ -222,7 +222,7 @@ body {
     cursor: pointer;
 }
 
-/* .formSearchBar {
+.formSearchBar {
     position: relative;
     display: flex;
 }
@@ -235,7 +235,7 @@ body {
 .formSearchBarUstensil {
     position: relative;
     display: flex;
-} */
+}
 
 .formSearchBarFilter {
     display: none;
