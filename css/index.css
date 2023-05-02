@@ -1,5 +1,15 @@
 body {
     padding: 5rem;
+    font-weight: bold !important;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    color: white;
+}
+
+.formSearchBar input[type="text"]:focus {
+    color: black;
 }
 
 .homePage {
@@ -13,27 +23,26 @@ body {
     margin-bottom: 30px;
 }
 
+#blocFilter {
+    display: flex;
+}
+
 .filter {
     display: flex;
-    position: absolute;
+    /* position: absolute; */
     z-index: 1;
 }
 
 .dropdown {
-    top: -0.5rem;
-    position: absolute;
+    background-color: blue;
 }
 
 .dropdownAppliance {
-    top: -0.5rem;
-    left: 13rem;
-    position: absolute;
+    background-color: green;
 }
 
 .dropdownUstensil {
-    top: -0.5rem;
-    left: 26rem;
-    position: absolute;
+    background-color: red;
 }
 
 /* .dropdown.active1 .selectedActive{
@@ -81,6 +90,10 @@ body {
     cursor: pointer;
 }
 
+.btnDropdown:focus{
+    outline: none;
+}
+
 .btnDropdownAppliance {
     width: 180px;
     height: 40px;
@@ -94,6 +107,10 @@ body {
     font-weight: bold;
     padding: 25px;
     cursor: pointer;
+}
+
+.btnDropdownAppliance:focus{
+    outline: none;
 }
 
 .btnDropdownUstensil {
@@ -111,11 +128,21 @@ body {
     cursor: pointer;
 }
 
+.btnDropdownUstensil:focus{
+    outline: none;
+}
+
 .dropdown_content {
     display: none;
     width: 35rem;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+}
+
+.dropdown_content button {
+    border: 0;
+    color: white;
+    background-color: blue;
 }
 
 .dropdown_contentAppliance {
@@ -125,11 +152,23 @@ body {
     border-bottom-left-radius: 5px;
 }
 
+.dropdown_contentAppliance button {
+    border: 0;
+    color: white;
+    background-color: green;
+}
+
 .dropdown_contentUstensil {
     display: none;
     width: 35rem;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+}
+
+.dropdown_contentUstensil button {
+    border: 0;
+    color: white;
+    background-color: red;
 }
 
 .dropdown .btnDropdown span {
@@ -249,11 +288,23 @@ body {
     display: none;
 }
 
+.formSearchBarFilter ::placeholder{
+    color: white;
+}
+
+.formSearchBarFilterAppliance ::placeholder{
+    color: white;
+}
+
+.formSearchBarFilterUstensil ::placeholder{
+    color: white;
+}
+
 .formSearchBarFilter input {
     width: 35rem;
     height: 50px;
     padding-left: 15px;
-    background-color: lightgray;
+    background-color: blue;
     border: 0;
     border-radius: 0.3rem;
 }
@@ -262,7 +313,7 @@ body {
     width: 35rem;
     height: 50px;
     padding-left: 15px;
-    background-color: lightgray;
+    background-color: green;
     border: 0;
     border-radius: 0.3rem;
 }
@@ -271,7 +322,7 @@ body {
     width: 35rem;
     height: 50px;
     padding-left: 15px;
-    background-color: lightgray;
+    background-color: red;
     border: 0;
     border-radius: 0.3rem;
 }
@@ -299,9 +350,8 @@ body {
 .recipes-list {
     display: flex;
     flex-wrap: wrap;
-    /*align-items: center;*/
     justify-content: space-between;
-    margin-top: 7rem;
+    margin-top: 3rem;
 }
 
 .figureRecipe {
@@ -321,26 +371,35 @@ body {
 .title_time {
     display: flex;
     justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .titleRecipe {
     font-size: 1rem;
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ingredients_description {
     display: flex;
     font-size: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    justify-content: space-between;
+
 }
 
-.ingredient {
-    display: flex;
-    width: 200px;
-    height: 15px;
+p{
+    margin-bottom: 0px !important;
 }
 
 .description {
-    width: 80%;
-    /*white-space: nowrap;*/
+    width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
