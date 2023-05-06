@@ -19,8 +19,107 @@ input[type="text"]:focus {
     padding-bottom: 30px;
 }
 
+#blocTags {
+    display: flex;
+}
+
 #tagsFilter {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#tagsFilter #buttonSVG {
+    background-color: blue;
+    position: relative;
+    color: white;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    border: 0;
+    fill: white;
+    cursor: pointer;
+}
+
+#tagsFilter button{
+    border: 0;
+    color: white;
+    background-color: transparent;
+}
+
+#tagsFilter svg {
+    position: absolute;
+    width: 20px;
+    right: 10px;
+    top: 11px;
+}
+
+#tagsFilterAppliance {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#tagsFilterAppliance #buttonSVGAppliance {
+    background-color: green;
+    position: relative;
+    color: white;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    border: 0;
+    fill: white;
+    cursor: pointer;
+}
+
+#tagsFilterAppliance button{
+    border: 0;
+    color: white;
+    background-color: transparent;
+}
+
+#tagsFilterAppliance svg {
+    position: absolute;
+    width: 20px;
+    right: 10px;
+    top: 11px;
+}
+
+#tagsFilterUstensil {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#tagsFilterUstensil #buttonSVGUstensil {
+    background-color: red;
+    position: relative;
+    color: white;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    border: 0;
+    fill: white;
+    cursor: pointer;
+}
+
+#tagsFilterUstensil button{
+    border: 0;
+    color: white;
+    background-color: transparent;
+}
+
+#tagsFilterUstensil svg {
+    position: absolute;
+    width: 20px;
+    right: 10px;
+    top: 11px;
 }
 
 #blocFilter {
@@ -29,20 +128,27 @@ input[type="text"]:focus {
 
 .filter {
     display: flex;
-    /* position: absolute; */
     z-index: 1;
 }
 
 .dropdown {
     background-color: blue;
+    border-radius: 0.5rem;
 }
 
 .dropdownAppliance {
     background-color: green;
+    border-radius: 0.5rem;
 }
 
 .dropdownUstensil {
     background-color: red;
+    border-radius: 0.5rem;
+}
+
+.dropdownPaddingBorder {
+    padding: 1rem;
+    border-radius: 0.5rem;
 }
 
 /* .dropdown.active1 .selectedActive{
@@ -137,12 +243,20 @@ input[type="text"]:focus {
     width: 35rem;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+    max-height: 300px;
+    overflow-x: auto;
+    scrollbar-width: thin;
 }
 
 .dropdown_content button {
     border: 0;
     color: white;
     background-color: blue;
+    width: 30%;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dropdown_contentAppliance {
@@ -156,6 +270,8 @@ input[type="text"]:focus {
     border: 0;
     color: white;
     background-color: green;
+    width: 30%;
+    text-align: left;
 }
 
 .dropdown_contentUstensil {
@@ -169,6 +285,8 @@ input[type="text"]:focus {
     border: 0;
     color: white;
     background-color: red;
+    width: 30%;
+    text-align: left;
 }
 
 .dropdown .btnDropdown span {
@@ -347,8 +465,13 @@ input[type="text"]:focus {
     top: 0.5rem;
 }
 
+#blocRecipes{
+    position: relative;
+}
+
 .recipes-list {
     display: flex;
+    position: absolute;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 3rem;
@@ -375,6 +498,17 @@ input[type="text"]:focus {
     padding-right: 1rem;
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+}
+
+.timer {
+    position: relative;
+}
+
+.timer svg {
+    position: absolute;
+    width: 30%;
+    right: 55px;
+    top: 5px;
 }
 
 .titleRecipe {
