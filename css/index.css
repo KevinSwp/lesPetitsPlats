@@ -19,12 +19,8 @@ input[type="text"]:focus {
     padding-bottom: 30px;
 }
 
-#blocTags {
-    display: flex;
-}
-
 #tagsFilter {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     position: relative;
     display: flex;
     overflow: auto;
@@ -57,7 +53,7 @@ input[type="text"]:focus {
 }
 
 #tagsFilterAppliance {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     position: relative;
     display: flex;
     overflow: auto;
@@ -90,7 +86,7 @@ input[type="text"]:focus {
 }
 
 #tagsFilterUstensil {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     position: relative;
     display: flex;
     overflow: auto;
@@ -122,8 +118,19 @@ input[type="text"]:focus {
     top: 11px;
 }
 
+#blocTags {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#blocFR{
+    
+}
+
 #blocFilter {
     display: flex;
+    top: -100;
+    z-index: 100;
 }
 
 .filter {
@@ -134,20 +141,23 @@ input[type="text"]:focus {
 .dropdown {
     background-color: blue;
     border-radius: 0.5rem;
+    padding: 0.5rem;
 }
 
 .dropdownAppliance {
     background-color: green;
     border-radius: 0.5rem;
+    padding: 0.5rem;
 }
 
 .dropdownUstensil {
     background-color: red;
     border-radius: 0.5rem;
+    padding: 0.5rem;
 }
 
 .dropdownPaddingBorder {
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
 }
 
@@ -465,13 +475,8 @@ input[type="text"]:focus {
     top: 0.5rem;
 }
 
-#blocRecipes{
-    position: relative;
-}
-
 .recipes-list {
     display: flex;
-    position: absolute;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 3rem;

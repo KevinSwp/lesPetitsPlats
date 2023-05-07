@@ -133,10 +133,13 @@ export default class IndexView {
                                     <div className="ingredient">
                                         <p>
                                             <span><strong>${this._recipe.ingredients[i].ingredient}</strong> :</span>
-                                            <span>${this._recipe.ingredients[i].quantity} </span>`
+                                            `
 
+                                            if (this._recipe.ingredients[i].quantity) {
+                                                content += `<span>${this._recipe.ingredients[i].quantity} </span>`
+                                            }
                                             if (this._recipe.ingredients[i].unit) {
-                                                content += `<span>${this._recipe.ingredients[i].unit}</span>`
+                                                content += `<span>${this._recipe.ingredients[i].unit} </span>`
                                             }
 
                                         content += `</p>

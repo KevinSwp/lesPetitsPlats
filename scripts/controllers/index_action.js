@@ -22,16 +22,33 @@ const recipeSection = document.querySelector(".recipes-list");
 const getAllRecipes = async () => {
 
     try {
+        // Fetch the data from the "recipes.json" file
         const response = await fetch("data/recipes.json");
+        // Extract the JSON data from the response
         const data = await response.json();
+        // Get the "recipes" array from the JSON data
         const { recipes } = data;
-        const recipeObjects = recipes.map((recipeData) => new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1));
-
+        // Create an empty array to store recipe objects
+        const recipeObjects = [];
+    
+        // Loop through each recipe in the "recipes" array
+        for (let i = 0; i < recipes.length; i++) {
+            // Get the data for the current recipe
+            const recipeData = recipes[i];
+            // Create a new recipe object using the RecipeFactory and add it to the array
+            const recipeObject = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
+            recipeObjects.push(recipeObject);
+        }
+    
+        // Return the array of recipe objects
         return recipeObjects;
     }
-
+    
+    // Catch any errors that occur during the data fetching or processing
     catch (error) {
+        // Log the error to the console
         console.error(`Error fetching data: ${error}`);
+        // Throw the error to be handled by the calling function
         throw error;
     }
 };
@@ -70,7 +87,8 @@ const sortByKeywords = (recipes) => {
 
     // Display filtered recipes
     const recipesOK = [];
-    recipes.forEach((recipe) => {
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
         // Check if the recipe name or description includes the search text
         const recipeTitle = recipe.name.toLowerCase();
         const recipeDescription = recipe.description.toLowerCase();
@@ -83,7 +101,7 @@ const sortByKeywords = (recipes) => {
             recipeSection.appendChild(recipeCard);
             recipesOK.push(recipe);
         }
-    });
+    }
 
     return recipesOK;
 };
@@ -199,7 +217,13 @@ const filterByDropdownUstensil = (recipes) => {
 
     // Filter the recipes based on the selected utensils
     return recipes.filter(recipe => {
-        const recipeUstensils = recipe.ustensils.map(ustensil => ustensil.toLowerCase());
+        // Create an empty array to store the recipe utensils in lowercase
+        const recipeUstensils = [];
+
+        // Iterate through the recipe utensils and convert them to lowercase
+        for (let i = 0; i < recipe.ustensils.length; i++) {
+            recipeUstensils.push(recipe.ustensils[i].toLowerCase());
+        }
 
         // Check if any of the selected utensils is in the recipe utensils list
         return selectedUstensil.some(ustensil => recipeUstensils.includes(ustensil));
@@ -244,14 +268,18 @@ const displayAllRecipes = (recipes) => {
     // Reset recipe
     resetDisplayRecipes();
 
-    recipes.forEach((recipe) => {
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
         // Build and display the recipe card
         const recipeCardView = new IndexView(recipe);
         const recipeCard = recipeCardView.getRecipeCardIndex();
         recipeSection.appendChild(recipeCard);
-    });
+    }
 };
 
+/**
+ * Create SVG element
+ */
 const createSvgElement = () => {
     const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svgElement.setAttribute("viewBox", "0 0 512 512");
@@ -267,6 +295,7 @@ const createSvgElement = () => {
  * Display dropdown
 */
 const displayDropdownIngredient = (recipes) => {
+    // Check if dropdown content doesn't already exist
     if (!document.querySelector(".dropdown_content")) {
         const objectIndexView = new IndexView();
         const dropdown = objectIndexView.getFilterIngredient();
@@ -276,46 +305,54 @@ const displayDropdownIngredient = (recipes) => {
     const searchInput = document.getElementById("searchFilter");
     const dropdownContent = document.querySelector(".dropdown_content");
 
+    // Reset dropdown content
     dropdownContent.innerHTML = "";
 
+    // Create a Set to store unique ingredients found in the recipes
     const uniqueIngredients = new Set();
-    recipes.forEach(recipe => {
-        recipe.ingredients.forEach(ingredient => {
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
+        for (let j = 0; j < recipe.ingredients.length; j++) {
+            const ingredient = recipe.ingredients[j];
             uniqueIngredients.add(ingredient.ingredient.toLowerCase());
-        });
-    });
+        }
+    }
 
+    // Add click listeners to the dropdown buttons
     const addButtonClickListeners = (buttons) => {
-        buttons.forEach(button => {
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
             button.addEventListener("click", async (event) => {
-                // Vérifier si le bouton existe déjà dans la section de tags
+                // Check if the button already exists in the tags section
                 const existingButton = document.querySelector(`#tagsFilter [data-ingredient="${event.target.textContent.toLowerCase()}"]`);
                 if (existingButton) {
-                    // Ne pas ajouter le bouton s'il existe déjà
+                    // Don't add the button if it already exists
                     return;
                 }
-    
+
+                // Create a new button with an SVG element
                 const buttonSvgDiv = document.createElement('div');
                 buttonSvgDiv.id = `buttonSVG`;
-                // Ajouter un attribut data-ingredient pour faciliter la recherche
+                // Add attribut to make easier the research
                 buttonSvgDiv.setAttribute('data-ingredient', event.target.textContent.toLowerCase());
-    
+
                 const newButton = document.createElement('button');
                 newButton.textContent = event.target.textContent;
                 buttonSvgDiv.appendChild(newButton);
-    
+
                 const svgElement = createSvgElement();
                 buttonSvgDiv.appendChild(svgElement);
-    
+
                 document.querySelector("#tagsFilter").appendChild(buttonSvgDiv);
-    
+
                 const allRecipes = await getAllRecipes();
                 const recipes = sortAll(allRecipes);
                 displayAll(recipes);
-    
+
                 // Reset input search bar
                 searchInput.value = "";
-    
+
+                // Add a click listener to the new button to remove it from the tags section
                 buttonSvgDiv.addEventListener("click", async () => {
                     buttonSvgDiv.remove();
                     const allRecipes = await getAllRecipes();
@@ -323,29 +360,35 @@ const displayDropdownIngredient = (recipes) => {
                     displayAll(recipes);
                 });
             });
-        });
+        }
     };
 
-    uniqueIngredients.forEach(ingredient => {
+    // Add buttons for each unique ingredient to the dropdown content
+    for (const ingredient of uniqueIngredients) {
         dropdownContent.innerHTML += `<button>${ingredient}</button>`;
-    });
+    }
 
+    // Add click listeners to the dropdown buttons
     const buttons = document.querySelectorAll(".dropdown_content button");
     addButtonClickListeners(buttons);
 
+    // Add an event listener to the search input to filter the dropdown content based on the input
     searchInput.addEventListener("input", () => {
         const searchKeyword = searchInput.value.toLowerCase();
         dropdownContent.innerHTML = "";
 
+        // Create an array from the Set of unique ingredients and filter it based on the search input
         const uniqueIngredientsArray = Array.from(uniqueIngredients);
         let filteredIngredients = [];
 
+        // Loop through the filteredIngredients array and create a button for each ingredient
         for (let i = 0; i < uniqueIngredientsArray.length; i++) {
             if (uniqueIngredientsArray[i].includes(searchKeyword)) {
                 filteredIngredients.push(uniqueIngredientsArray[i]);
             }
         }
 
+        // Select all buttons in the dropdown_content div and add click listeners to each one
         for (let i = 0; i < filteredIngredients.length; i++) {
             const ingredient = filteredIngredients[i];
             dropdownContent.innerHTML += `<button>${ingredient}</button>`;
@@ -367,53 +410,69 @@ const displayDropdownIngredient = (recipes) => {
  * Display dropdown appliance
 */
 const displayDropdownAppliance = (recipes) => {
+    // Check if the dropdown content already exists, if not create it
     if (!document.querySelector(".dropdown_contentAppliance")) {
         const objectIndexView = new IndexView();
         const dropdown = objectIndexView.getFilterAppliance();
         filterAppliance.appendChild(dropdown);
     }
 
+    // Get the search input and the dropdown content
     const searchInput = document.getElementById("searchFilterAppliance");
     const dropdownContent = document.querySelector(".dropdown_contentAppliance");
 
+    // Empty the dropdown content
     dropdownContent.innerHTML = "";
 
+    // Create a set to store the unique appliance values
     const uniqueAppliances = new Set();
-    recipes.forEach(recipe => {
-        uniqueAppliances.add(recipe.appliance.toLowerCase());
-    });
 
+    // Loop through the recipes and add their appliances to the set
+    for (let i = 0; i < recipes.length; i++) {
+        uniqueAppliances.add(recipes[i].appliance.toLowerCase());
+    }
+
+    // Function to add click listeners to the dropdown buttons
     const addButtonClickListeners = (buttons) => {
-        buttons.forEach(button => {
-            button.addEventListener("click", async (event) => {
-                // Vérifier si le bouton existe déjà dans la section de tags
+        for (let i = 0; i < buttons.length; i++) {
+
+            // Add a click listener to the button
+            buttons[i].addEventListener("click", async (event) => {
+
+                // Check if the button already exists in the tags section
                 const existingButton = document.querySelector(`#tagsFilterAppliance [data-appliance="${event.target.textContent.toLowerCase()}"]`);
+
+                // If the button already exists, do not add it again
                 if (existingButton) {
-                    // Ne pas ajouter le bouton s'il existe déjà
                     return;
                 }
-    
+
+                // Create a new div for the button and add a data-appliance attribute for easy search
                 const buttonSvgDiv = document.createElement('div');
                 buttonSvgDiv.id = `buttonSVGAppliance`;
-                // Ajouter un attribut data-appliance pour faciliter la recherche
                 buttonSvgDiv.setAttribute('data-appliance', event.target.textContent.toLowerCase());
-    
+
+                // Create a new button element and add it to the div
                 const newButton = document.createElement('button');
                 newButton.textContent = event.target.textContent;
                 buttonSvgDiv.appendChild(newButton);
-    
+
+                // Create a new SVG element and add it to the div
                 const svgElement = createSvgElement();
                 buttonSvgDiv.appendChild(svgElement);
-    
+
+                // Add the button div to the tags section
                 document.querySelector("#tagsFilterAppliance").appendChild(buttonSvgDiv);
-    
+
+                // Get all the recipes and sort them
                 const allRecipes = await getAllRecipes();
                 const recipes = sortAll(allRecipes);
+
+                // Display all the recipes and reset the input search bar
                 displayAll(recipes);
-    
-                // Reset input search bar
                 searchInput.value = "";
-    
+
+                // Add a click listener to the button div to remove it and display all the recipes
                 buttonSvgDiv.addEventListener("click", async () => {
                     buttonSvgDiv.remove();
                     const allRecipes = await getAllRecipes();
@@ -421,41 +480,54 @@ const displayDropdownAppliance = (recipes) => {
                     displayAll(recipes);
                 });
             });
-        });
+        }
     };
 
-    uniqueAppliances.forEach(appliance => {
+    // Loop through the unique appliances and add a button for each one in the dropdown content
+    for (const appliance of uniqueAppliances) {
         dropdownContent.innerHTML += `<button>${appliance}</button>`;
-    });
+    }
 
+    // Get all the buttons inside the dropdown_contentAppliance
     const buttons = document.querySelectorAll(".dropdown_contentAppliance button");
+    // Add click event listeners to the buttons
     addButtonClickListeners(buttons);
 
+    // Listen for input changes on the searchInput field
     searchInput.addEventListener("input", () => {
+        // Get the search keyword and convert it to lowercase
         const searchKeyword = searchInput.value.toLowerCase();
+        // Clear the dropdown content
         dropdownContent.innerHTML = "";
 
+        // Convert the uniqueAppliances set to an array
         const uniqueAppliancesArray = Array.from(uniqueAppliances);
+        // Initialize an array to store the filtered appliances
         let filteredAppliances = [];
 
+        // Loop through the uniqueAppliancesArray and filter based on the search keyword
         for (let i = 0; i < uniqueAppliancesArray.length; i++) {
             if (uniqueAppliancesArray[i].includes(searchKeyword)) {
                 filteredAppliances.push(uniqueAppliancesArray[i]);
             }
         }
 
+        // Loop through the filteredAppliances array and create buttons for each appliance
         for (let i = 0; i < filteredAppliances.length; i++) {
             const appliance = filteredAppliances[i];
             dropdownContent.innerHTML += `<button>${appliance}</button>`;
         }
 
+        // Get all the buttons inside the filtered dropdown content and add click event listeners
         const filteredButtons = document.querySelectorAll(".dropdown_contentAppliance button");
         addButtonClickListeners(filteredButtons);
     });
 
+    // Get the SVG element inside the svgIconAppliance container and add the "svgDisable" class
     const svg = document.querySelector(".svgIconAppliance svg");
     svg.classList.add("svgDisable");
 
+    // Add a click event listener to the element with the ID "selectedAppliance" to show the filter dropdown
     document.getElementById("selectedAppliance").addEventListener("click", () => {
         showFilterDropdownAppliance()
     });
@@ -465,6 +537,7 @@ const displayDropdownAppliance = (recipes) => {
  * Display dropdown ustensil
 */
 const displayDropdownUstensil = (recipes) => {
+    // Check if dropdown menu is not already created
     if (!document.querySelector(".dropdown_contentUstensil")) {
         const objectIndexView = new IndexView();
         const dropdown = objectIndexView.getFilterUstensil();
@@ -474,19 +547,21 @@ const displayDropdownUstensil = (recipes) => {
     const searchInput = document.getElementById("searchFilterUstensil");
     const dropdownContent = document.querySelector(".dropdown_contentUstensil");
 
+    // Reset
     dropdownContent.innerHTML = "";
 
     const uniqueUstensils = new Set();
-    recipes.forEach(recipe => {
-        recipe.ustensils.forEach(ustensil => {
+    for (const recipe of recipes) {
+        for (const ustensil of recipe.ustensils) {
             if (ustensil) {
                 uniqueUstensils.add(ustensil.toLowerCase());
             }
-        });
-    });
+        }
+    }
 
+    // Function to add click listeners to buttons
     const addButtonClickListeners = (buttons) => {
-        buttons.forEach(button => {
+        for (const button of buttons) {
             button.addEventListener("click", async (event) => {
                 // Vérifier si le bouton existe déjà dans la section de tags
                 const existingButton = document.querySelector(`#tagsFilterUstensil [data-ustensil="${event.target.textContent.toLowerCase()}"]`);
@@ -523,16 +598,18 @@ const displayDropdownUstensil = (recipes) => {
                     displayAll(recipes);
                 });
             });
-        });
+        }
     };
 
-    uniqueUstensils.forEach(ustensil => {
+    // Add the unique utensils as buttons to the dropdown menu
+    for (const ustensil of uniqueUstensils) {
         dropdownContent.innerHTML += `<button>${ustensil}</button>`;
-    });
+    }
 
     const buttons = document.querySelectorAll(".dropdown_contentUstensil button");
     addButtonClickListeners(buttons);
 
+    // Filter the dropdown menu based on the input search
     searchInput.addEventListener("input", () => {
         const searchKeyword = searchInput.value.toLowerCase();
         dropdownContent.innerHTML = "";
