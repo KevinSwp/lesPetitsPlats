@@ -28,21 +28,14 @@ const getAllRecipes = async () => {
         const data = await response.json();
         // Get the "recipes" array from the JSON data
         const { recipes } = data;
-        // Create an empty array to store recipe objects
-        const recipeObjects = [];
-    
-        // Loop through each recipe in the "recipes" array
-        for (let i = 0; i < recipes.length; i++) {
-            // Get the data for the current recipe
-            const recipeData = recipes[i];
-            // Create a new recipe object using the RecipeFactory and add it to the array
-            const recipeObject = new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
-            recipeObjects.push(recipeObject);
-        }
-    
+        // Create an array of recipe objects using the map method
+        const recipeObjects = recipes.map((recipeData) => {
+          // Create a new recipe object using the RecipeFactory and return it
+          return new RecipeFactory(recipeData, RECIPE_TYPES.JSON_V1);
+        });
         // Return the array of recipe objects
         return recipeObjects;
-    }
+      }
     
     // Catch any errors that occur during the data fetching or processing
     catch (error) {
@@ -86,9 +79,7 @@ const sortByKeywords = (recipes) => {
     recipeSection.innerHTML = "";
 
     // Display filtered recipes
-    const recipesOK = [];
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
+    const recipesOK = recipes.map(recipe => {
         // Check if the recipe name or description includes the search text
         const recipeTitle = recipe.name.toLowerCase();
         const recipeDescription = recipe.description.toLowerCase();
@@ -99,9 +90,10 @@ const sortByKeywords = (recipes) => {
             const recipeCardView = new IndexView(recipe);
             const recipeCard = recipeCardView.getRecipeCardIndex();
             recipeSection.appendChild(recipeCard);
-            recipesOK.push(recipe);
+            return recipe;
         }
-    }
+    })
+    .filter(recipe => recipe !== undefined);
 
     return recipesOK;
 };
@@ -112,49 +104,23 @@ const sortByKeywords = (recipes) => {
 const filterByDropdownIngredient = (recipes) => {
     // Select all the buttons inside the "tagsFilter" element
     const tagButtons = document.querySelectorAll("#tagsFilter button");
-    // Initialize an array to store the selected tags (ingredients)
-    const selectedTags = [];
 
-    // Iterate over the buttons and store their text content in lowercase
-    for (let i = 0; i < tagButtons.length; i++) {
-        selectedTags.push(tagButtons[i].textContent.toLowerCase());
-    }
+    // Create an array of lowercase text content of the tag buttons
+    const selectedTags = Array.from(tagButtons).map(button => button.textContent.toLowerCase());
 
     // If there are no selected tags, return the original recipes array
     if (selectedTags.length === 0) {
         return recipes;
     }
 
-    // Initialize an array to store the filtered recipes
-    const filteredRecipes = [];
-
-    // Iterate over the recipes array
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        // Initialize an array to store the recipe ingredients in lowercase
-        const recipeIngredients = [];
-
-        // Iterate over the ingredients and store them in lowercase
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-            recipeIngredients.push(recipe.ingredients[j].ingredient.toLowerCase());
-        }
-
-        // Assume all selected tags are included in the recipe ingredients
-        let allTagsIncluded = true;
-
+    // Filter the recipes array based on selected tags
+    const filteredRecipes = recipes.filter(recipe => {
+        // Create an array of lowercase recipe ingredients
+        const recipeIngredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+      
         // Check if all selected tags are included in the recipe ingredients
-        for (let j = 0; j < selectedTags.length; j++) {
-            if (!recipeIngredients.includes(selectedTags[j])) {
-                allTagsIncluded = false;
-                break;
-            }
-        }
-
-        // If all selected tags are included, add the recipe to the filtered recipes array
-        if (allTagsIncluded) {
-            filteredRecipes.push(recipe);
-        }
-    }
+        return selectedTags.every(tag => recipeIngredients.includes(tag));
+    });
 
     // Return the filtered recipes array
     return filteredRecipes;
@@ -164,33 +130,23 @@ const filterByDropdownIngredient = (recipes) => {
  *  Filter recipes based on dropdown appliance
  */  
 const filterByDropdownAppliance = (recipes) => {
-    // Create an empty array to store the selected appliances
-    const selectedAppliances = [];
-    // Get all the appliance filter buttons from the DOM
-    const applianceButtons = document.querySelectorAll("#tagsFilterAppliance button");
+    // Get all the appliance filter buttons from the DOM and convert the NodeList to an array
+    const applianceButtons = Array.from(document.querySelectorAll("#tagsFilterAppliance button"));
 
-    // Iterate through the appliance filter buttons and store the text content in lowercase
-    for (let i = 0; i < applianceButtons.length; i++) {
-        selectedAppliances.push(applianceButtons[i].textContent.toLowerCase());
-    }
+    // Create an array of the selected appliance names in lowercase using the map method
+    const selectedAppliances = applianceButtons.map(button => button.textContent.toLowerCase());
 
     // If no appliances are selected, return the original recipes array
     if (selectedAppliances.length === 0) {
         return recipes;
     }
 
-    // Filter the recipes based on the selected appliances
+    // Filter the recipes based on the selected appliances using the map method
     return recipes.filter(recipe => {
         const recipeAppliance = recipe.appliance.toLowerCase();
-        let isApplianceIncluded = false;
 
-        // Check if the current recipe appliance is in the selected appliances list
-        for (let i = 0; i < selectedAppliances.length; i++) {
-            if (selectedAppliances[i] === recipeAppliance) {
-                isApplianceIncluded = true;
-                break;
-            }
-        }
+        // Check if the current recipe appliance is in the selected appliances list using the map method
+        const isApplianceIncluded = selectedAppliances.some(selectedAppliance => selectedAppliance === recipeAppliance);
 
         return isApplianceIncluded;
     });
@@ -202,13 +158,9 @@ const filterByDropdownAppliance = (recipes) => {
 const filterByDropdownUstensil = (recipes) => {
     // Get all the utensil filter buttons from the DOM
     const ustensilButtons = document.querySelectorAll("#tagsFilterUstensil button");
-    // Create an empty array to store the selected utensils
-    const selectedUstensil = [];
 
-    // Iterate through the utensil filter buttons and store the text content in lowercase
-    for (let i = 0; i < ustensilButtons.length; i++) {
-        selectedUstensil.push(ustensilButtons[i].textContent.toLowerCase());
-    }
+    // Create an array of selected utensils using the map method
+    const selectedUstensil = Array.from(ustensilButtons).map(button => button.textContent.toLowerCase());
 
     // If no utensils are selected, return the original recipes array
     if (selectedUstensil.length === 0) {
@@ -217,13 +169,8 @@ const filterByDropdownUstensil = (recipes) => {
 
     // Filter the recipes based on the selected utensils
     return recipes.filter(recipe => {
-        // Create an empty array to store the recipe utensils in lowercase
-        const recipeUstensils = [];
-
-        // Iterate through the recipe utensils and convert them to lowercase
-        for (let i = 0; i < recipe.ustensils.length; i++) {
-            recipeUstensils.push(recipe.ustensils[i].toLowerCase());
-        }
+        // Create an array of recipe utensils in lowercase using the map method
+        const recipeUstensils = recipe.ustensils.map(utensil => utensil.toLowerCase());
 
         // Check if any of the selected utensils is in the recipe utensils list
         return selectedUstensil.some(ustensil => recipeUstensils.includes(ustensil));
@@ -310,18 +257,15 @@ const displayDropdownIngredient = (recipes) => {
 
     // Create a Set to store unique ingredients found in the recipes
     const uniqueIngredients = new Set();
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-            const ingredient = recipe.ingredients[j];
+    recipes.forEach(recipe => {
+        recipe.ingredients.forEach(ingredient => {
             uniqueIngredients.add(ingredient.ingredient.toLowerCase());
-        }
-    }
+        });
+    });
 
     // Add click listeners to the dropdown buttons
     const addButtonClickListeners = (buttons) => {
-        for (let i = 0; i < buttons.length; i++) {
-            const button = buttons[i];
+        buttons.forEach((button) => {
             button.addEventListener("click", async (event) => {
                 // Check if the button already exists in the tags section
                 const existingButton = document.querySelector(`#tagsFilter [data-ingredient="${event.target.textContent.toLowerCase()}"]`);
@@ -329,29 +273,29 @@ const displayDropdownIngredient = (recipes) => {
                     // Don't add the button if it already exists
                     return;
                 }
-
+        
                 // Create a new button with an SVG element
                 const buttonSvgDiv = document.createElement('div');
                 buttonSvgDiv.id = `buttonSVG`;
                 // Add attribut to make easier the research
                 buttonSvgDiv.setAttribute('data-ingredient', event.target.textContent.toLowerCase());
-
+        
                 const newButton = document.createElement('button');
                 newButton.textContent = event.target.textContent;
                 buttonSvgDiv.appendChild(newButton);
-
+        
                 const svgElement = createSvgElement();
                 buttonSvgDiv.appendChild(svgElement);
-
+        
                 document.querySelector("#tagsFilter").appendChild(buttonSvgDiv);
-
+        
                 const allRecipes = await getAllRecipes();
                 const recipes = sortAll(allRecipes);
                 displayAll(recipes);
-
+        
                 // Reset input search bar
                 searchInput.value = "";
-
+        
                 // Add a click listener to the new button to remove it from the tags section
                 buttonSvgDiv.addEventListener("click", async () => {
                     buttonSvgDiv.remove();
@@ -360,13 +304,13 @@ const displayDropdownIngredient = (recipes) => {
                     displayAll(recipes);
                 });
             });
-        }
+        });
     };
 
     // Add buttons for each unique ingredient to the dropdown content
-    for (const ingredient of uniqueIngredients) {
+    uniqueIngredients.forEach(ingredient => {
         dropdownContent.innerHTML += `<button>${ingredient}</button>`;
-    }
+    });
 
     // Add click listeners to the dropdown buttons
     const buttons = document.querySelectorAll(".dropdown_content button");
@@ -382,17 +326,16 @@ const displayDropdownIngredient = (recipes) => {
         let filteredIngredients = [];
 
         // Loop through the filteredIngredients array and create a button for each ingredient
-        for (let i = 0; i < uniqueIngredientsArray.length; i++) {
-            if (uniqueIngredientsArray[i].includes(searchKeyword)) {
-                filteredIngredients.push(uniqueIngredientsArray[i]);
+        uniqueIngredientsArray.forEach(ingredient => {
+            if (ingredient.includes(searchKeyword)) {
+                filteredIngredients.push(ingredient);
             }
-        }
+        });
 
         // Select all buttons in the dropdown_content div and add click listeners to each one
-        for (let i = 0; i < filteredIngredients.length; i++) {
-            const ingredient = filteredIngredients[i];
+        filteredIngredients.forEach(ingredient => {
             dropdownContent.innerHTML += `<button>${ingredient}</button>`;
-        }
+        });
 
         const filteredButtons = document.querySelectorAll(".dropdown_content button");
         addButtonClickListeners(filteredButtons);
@@ -428,16 +371,16 @@ const displayDropdownAppliance = (recipes) => {
     const uniqueAppliances = new Set();
 
     // Loop through the recipes and add their appliances to the set
-    for (let i = 0; i < recipes.length; i++) {
-        uniqueAppliances.add(recipes[i].appliance.toLowerCase());
-    }
+    recipes.forEach(recipe => {
+        uniqueAppliances.add(recipe.appliance.toLowerCase());
+    });
 
     // Function to add click listeners to the dropdown buttons
     const addButtonClickListeners = (buttons) => {
-        for (let i = 0; i < buttons.length; i++) {
+        buttons.forEach((button, i) => {
 
             // Add a click listener to the button
-            buttons[i].addEventListener("click", async (event) => {
+            button.addEventListener("click", async (event) => {
 
                 // Check if the button already exists in the tags section
                 const existingButton = document.querySelector(`#tagsFilterAppliance [data-appliance="${event.target.textContent.toLowerCase()}"]`);
@@ -480,13 +423,13 @@ const displayDropdownAppliance = (recipes) => {
                     displayAll(recipes);
                 });
             });
-        }
+        });
     };
 
     // Loop through the unique appliances and add a button for each one in the dropdown content
-    for (const appliance of uniqueAppliances) {
+    uniqueAppliances.forEach(appliance => {
         dropdownContent.innerHTML += `<button>${appliance}</button>`;
-    }
+    });
 
     // Get all the buttons inside the dropdown_contentAppliance
     const buttons = document.querySelectorAll(".dropdown_contentAppliance button");
@@ -506,23 +449,22 @@ const displayDropdownAppliance = (recipes) => {
         let filteredAppliances = [];
 
         // Loop through the uniqueAppliancesArray and filter based on the search keyword
-        for (let i = 0; i < uniqueAppliancesArray.length; i++) {
-            if (uniqueAppliancesArray[i].includes(searchKeyword)) {
-                filteredAppliances.push(uniqueAppliancesArray[i]);
+        uniqueAppliancesArray.forEach(appliance => {
+            if (appliance.includes(searchKeyword)) {
+                filteredAppliances.push(appliance);
             }
-        }
+        });
 
         // Loop through the filteredAppliances array and create buttons for each appliance
-        for (let i = 0; i < filteredAppliances.length; i++) {
-            const appliance = filteredAppliances[i];
+        filteredAppliances.forEach(appliance => {
             dropdownContent.innerHTML += `<button>${appliance}</button>`;
-        }
+        });
 
         // Get all the buttons inside the filtered dropdown content and add click event listeners
         const filteredButtons = document.querySelectorAll(".dropdown_contentAppliance button");
         addButtonClickListeners(filteredButtons);
     });
-
+    
     // Get the SVG element inside the svgIconAppliance container and add the "svgDisable" class
     const svg = document.querySelector(".svgIconAppliance svg");
     svg.classList.add("svgDisable");
@@ -532,6 +474,7 @@ const displayDropdownAppliance = (recipes) => {
         showFilterDropdownAppliance()
     });
 };
+        
 
 /**
  * Display dropdown ustensil
@@ -551,17 +494,17 @@ const displayDropdownUstensil = (recipes) => {
     dropdownContent.innerHTML = "";
 
     const uniqueUstensils = new Set();
-    for (const recipe of recipes) {
-        for (const ustensil of recipe.ustensils) {
+    recipes.forEach(recipe => {
+        recipe.ustensils.forEach(ustensil => {
             if (ustensil) {
                 uniqueUstensils.add(ustensil.toLowerCase());
             }
-        }
-    }
+        });
+    });
 
     // Function to add click listeners to buttons
     const addButtonClickListeners = (buttons) => {
-        for (const button of buttons) {
+        buttons.forEach(button => {
             button.addEventListener("click", async (event) => {
                 // Vérifier si le bouton existe déjà dans la section de tags
                 const existingButton = document.querySelector(`#tagsFilterUstensil [data-ustensil="${event.target.textContent.toLowerCase()}"]`);
@@ -598,13 +541,13 @@ const displayDropdownUstensil = (recipes) => {
                     displayAll(recipes);
                 });
             });
-        }
+        });
     };
 
     // Add the unique utensils as buttons to the dropdown menu
-    for (const ustensil of uniqueUstensils) {
+    uniqueUstensils.forEach(ustensil => {
         dropdownContent.innerHTML += `<button>${ustensil}</button>`;
-    }
+    });
 
     const buttons = document.querySelectorAll(".dropdown_contentUstensil button");
     addButtonClickListeners(buttons);
@@ -617,16 +560,15 @@ const displayDropdownUstensil = (recipes) => {
         const uniqueUstensilsArray = Array.from(uniqueUstensils);
         let filteredUstensils = [];
 
-        for (let i = 0; i < uniqueUstensilsArray.length; i++) {
-            if (uniqueUstensilsArray[i].includes(searchKeyword)) {
-                filteredUstensils.push(uniqueUstensilsArray[i]);
+        uniqueUstensilsArray.forEach(ustensil => {
+            if (ustensil.includes(searchKeyword)) {
+                filteredUstensils.push(ustensil);
             }
-        }
+        });
 
-        for (let i = 0; i < filteredUstensils.length; i++) {
-            const ustensil = filteredUstensils[i];
+        filteredUstensils.forEach(ustensil => {
             dropdownContent.innerHTML += `<button>${ustensil}</button>`;
-        }
+        });
 
         const filteredButtons = document.querySelectorAll(".dropdown_contentUstensil button");
         addButtonClickListeners(filteredButtons);
