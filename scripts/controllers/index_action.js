@@ -215,13 +215,12 @@ const displayAllRecipes = (recipes) => {
     // Reset recipe
     resetDisplayRecipes();
 
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
+    recipes.map(recipe => {
         // Build and display the recipe card
         const recipeCardView = new IndexView(recipe);
         const recipeCard = recipeCardView.getRecipeCardIndex();
         recipeSection.appendChild(recipeCard);
-    }
+    });
 };
 
 /**
