@@ -24,7 +24,7 @@ export default class IndexView {
 
                 <div>
                     <form class="formSearchBarFilter">
-                        <input class="searchInputFilter" type="text" id="searchFilter" placeholder="Rechercher une recette">
+                        <input class="searchInputFilter" type="text" id="searchFilter" placeholder="Rechercher un ingredient">
                     </form>
                     <div class="dropdown_content"></div>
                 </div>
@@ -52,7 +52,7 @@ export default class IndexView {
     
                 <div>
                     <form class="formSearchBarFilterAppliance">
-                        <input class="searchInputFilterAppliance" type="text" id="searchFilterAppliance" placeholder="Rechercher une recette">
+                        <input class="searchInputFilterAppliance" type="text" id="searchFilterAppliance" placeholder="Rechercher un appareil">
                     </form>
                     <div class="dropdown_contentAppliance"></div>
                 </div>
@@ -80,7 +80,7 @@ export default class IndexView {
     
                 <div>
                     <form class="formSearchBarFilterUstensil">
-                        <input class="searchInputFilterUstensil" type="text" id="searchFilterUstensil" placeholder="Rechercher une recette">
+                        <input class="searchInputFilterUstensil" type="text" id="searchFilterUstensil" placeholder="Rechercher un ustensil">
                     </form>
                     <div class="dropdown_contentUstensil"></div>
                 </div>
