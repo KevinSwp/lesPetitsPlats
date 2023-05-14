@@ -1,9 +1,10 @@
-const closeAllDropdowns = () => {
+export const closeAllDropdowns = () => {
     // Fermer le dropdown des ingrédients
     const ingredientDropdown = document.querySelector(".dropdown_content");
     ingredientDropdown.style.display = "none";
     document.querySelector(".formSearchBarFilter").style.display = "none";
     document.getElementById("selected").classList.remove("selectedActive");
+    document.getElementById("selected").classList.remove("btnIngredientHide");
     document.querySelector(".svgIcon svg").classList.remove("svgEnable");
     document.querySelector(".svgIcon svg").classList.add("svgDisable");
 
@@ -12,6 +13,7 @@ const closeAllDropdowns = () => {
     applianceDropdown.style.display = "none";
     document.querySelector(".formSearchBarFilterAppliance").style.display = "none";
     document.getElementById("selectedAppliance").classList.remove("selectedActive");
+    document.getElementById("selectedAppliance").classList.remove("btnApplianceHide");
     document.querySelector(".svgIconAppliance svg").classList.remove("svgEnable");
     document.querySelector(".svgIconAppliance svg").classList.add("svgDisable");
 
@@ -20,6 +22,7 @@ const closeAllDropdowns = () => {
     ustensilDropdown.style.display = "none";
     document.querySelector(".formSearchBarFilterUstensil").style.display = "none";
     document.getElementById("selectedUstensil").classList.remove("selectedActive");
+    document.getElementById("selectedUstensil").classList.remove("btnUstensilHide");
     document.querySelector(".svgIconUstensil svg").classList.remove("svgEnable");
     document.querySelector(".svgIconUstensil svg").classList.add("svgDisable");
 };
@@ -36,16 +39,18 @@ const openIngredientDropdown = () => {
         dropdownPB.classList.add("dropdownPaddingBorder")
         formSearchBarFilter.style.display = "block";
         selected.classList.add("selectedActive");
+        selected.classList.add("btnIngredientHide");
         svg.classList.add("svgEnable");
-        svg.classList.remove("svgDisable");
-    } else {
-        option.style.display = "none";
-        dropdownPB.classList.remove("dropdownPaddingBorder")
-        formSearchBarFilter.style.display = "none";
-        selected.classList.remove("selectedActive");
-        svg.classList.add("svgDisable");
-        svg.classList.remove("svgEnable");
-    }
+        // svg.classList.remove("svgDisable");
+    } 
+    // else {
+    //     option.style.display = "none";
+    //     dropdownPB.classList.remove("dropdownPaddingBorder")
+    //     formSearchBarFilter.style.display = "none";
+    //     selected.classList.remove("selectedActive");
+    //     svg.classList.add("svgDisable");
+    //     svg.classList.remove("svgEnable");
+    // }
 };
 
 const openApplianceDropdown = () => {
@@ -60,16 +65,18 @@ const openApplianceDropdown = () => {
         dropdownPB.classList.add("dropdownPaddingBorder")
         formSearchBarFilter.style.display = "block";
         selected.classList.add("selectedActive");
+        selected.classList.add("btnApplianceHide");
         svg.classList.add("svgEnable");
-        svg.classList.remove("svgDisable");
-    } else {
-        option.style.display = "none";
-        dropdownPB.classList.remove("dropdownPaddingBorder");
-        formSearchBarFilter.style.display = "none";
-        selected.classList.remove("selectedActive");
-        svg.classList.add("svgDisable");
-        svg.classList.remove("svgEnable");
+        // svg.classList.remove("svgDisable");
     }
+    // else {
+    //     option.style.display = "none";
+    //     dropdownPB.classList.remove("dropdownPaddingBorder");
+    //     formSearchBarFilter.style.display = "none";
+    //     selected.classList.remove("selectedActive");
+    //     svg.classList.add("svgDisable");
+    //     svg.classList.remove("svgEnable");
+    // }
 };
 
 const openUstensilDropdown = () => {
@@ -84,16 +91,18 @@ const openUstensilDropdown = () => {
         dropdownPB.classList.add("dropdownPaddingBorder");
         formSearchBarFilter.style.display = "block";
         selected.classList.add("selectedActive");
+        selected.classList.add("btnUstensilHide");
         svg.classList.add("svgEnable");
-        svg.classList.remove("svgDisable");
-    } else {
-        option.style.display = "none";
-        dropdownPB.classList.remove("dropdownPaddingBorder");
-        formSearchBarFilter.style.display = "none";
-        selected.classList.remove("selectedActive");
-        svg.classList.add("svgDisable");
-        svg.classList.remove("svgEnable");
+        // svg.classList.remove("svgDisable");
     }
+    // else {
+    //     option.style.display = "none";
+    //     dropdownPB.classList.remove("dropdownPaddingBorder");
+    //     formSearchBarFilter.style.display = "none";
+    //     selected.classList.remove("selectedActive");
+    //     svg.classList.add("svgDisable");
+    //     svg.classList.remove("svgEnable");
+    // }
 };
 
 /**

@@ -15,7 +15,7 @@ export default class IndexView {
             <div role="menu" class="dropdown">
                 <button id="selected" class="btnDropdown">
                     <span id="selectedText">Ingredients</span>
-                    <span class="svgIcon">
+                    <span class="svgIconBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
                             <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
                         </svg>
@@ -24,7 +24,16 @@ export default class IndexView {
 
                 <div>
                     <form class="formSearchBarFilter">
-                        <input class="searchInputFilter" type="text" id="searchFilter" placeholder="Rechercher un ingredient">
+                        <div class="blocInput">
+                            <input class="searchInputFilter" type="text" id="searchFilter" placeholder="Rechercher un ingredient">
+                            <button type="button" class="btnCloseFromInput">
+                                <span class="svgIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
+                                        <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
                     </form>
                     <div class="dropdown_content"></div>
                 </div>
@@ -43,7 +52,7 @@ export default class IndexView {
             <div role="menu" class="dropdownAppliance">
                 <button id="selectedAppliance" class="btnDropdownAppliance">
                     <span id="selectedTextAppliance">Appareils</span>
-                    <span class="svgIconAppliance">
+                    <span class="svgIconApplianceBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
                             <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
                         </svg>
@@ -52,7 +61,16 @@ export default class IndexView {
     
                 <div>
                     <form class="formSearchBarFilterAppliance">
-                        <input class="searchInputFilterAppliance" type="text" id="searchFilterAppliance" placeholder="Rechercher un appareil">
+                        <div class="blocInputAppliance">
+                            <input class="searchInputFilterAppliance" type="text" id="searchFilterAppliance" placeholder="Rechercher un appareil">
+                            <button type="button" class="btnCloseFromInputAppliance">
+                                <span class="svgIconAppliance">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
+                                        <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
                     </form>
                     <div class="dropdown_contentAppliance"></div>
                 </div>
@@ -71,7 +89,7 @@ export default class IndexView {
             <div role="menu" class="dropdownUstensil">
                 <button id="selectedUstensil" class="btnDropdownUstensil">
                     <span id="selectedTextUstensil">Ustensiles</span>
-                    <span class="svgIconUstensil">
+                    <span class="svgIconUstensilBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
                             <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
                         </svg>
@@ -80,7 +98,16 @@ export default class IndexView {
     
                 <div>
                     <form class="formSearchBarFilterUstensil">
-                        <input class="searchInputFilterUstensil" type="text" id="searchFilterUstensil" placeholder="Rechercher un ustensil">
+                        <div class="blocInputUstensil">
+                            <input class="searchInputFilterUstensil" type="text" id="searchFilterUstensil" placeholder="Rechercher un ustensil">
+                            <button type="button" class="btnCloseFromInputUstensil">
+                                <span class="svgIconUstensil">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
+                                        <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>    
                     </form>
                     <div class="dropdown_contentUstensil"></div>
                 </div>
