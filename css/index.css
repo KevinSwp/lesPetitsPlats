@@ -136,9 +136,15 @@ input[type="text"]:focus {
     margin-bottom: 20px;
 }
 
-/* #blocFR{
-    
-} */
+.searchBarSectionPB {
+    margin-bottom: 15px;
+}
+
+#blocRecipes{
+    position: absolute;
+    top: 23rem;
+    z-index: -1;
+}
 
 #blocFilter {
     display: flex;
