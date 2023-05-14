@@ -4,7 +4,7 @@
 import RecipeFactory from "../factories/RecipeFactory.js";
 import { RECIPE_TYPES } from "../factories/RecipeFactory.js";
 import IndexView from "../views/index_view.js";
-import { showFilterDropdown, showFilterDropdownAppliance, showFilterDropdownUstensil } from "../utils/filters.js";
+import { showFilterDropdown, showFilterDropdownAppliance, showFilterDropdownUstensil, closeAllDropdowns } from "../utils/filters.js";
 
 
 /**
@@ -640,6 +640,24 @@ const displayDropdownUstensil = (recipes) => {
     });
 };
 
+// Close current dropdown
+const btnCloseFromCurrentInputWithDropdown = () => {
+    const closeButton = document.querySelector(".btnCloseFromInput");
+    closeButton.addEventListener("click", () => {
+        closeAllDropdowns();
+    });
+
+    const closeButtonAppliance = document.querySelector(".btnCloseFromInputAppliance");
+    closeButtonAppliance.addEventListener("click", () => {
+        closeAllDropdowns();
+    });
+
+    const closeButtonUstensil = document.querySelector(".btnCloseFromInputUstensil");
+    closeButtonUstensil.addEventListener("click", () => {
+        closeAllDropdowns();
+    });
+}
+
 /**
  * Init
  */
@@ -655,6 +673,8 @@ const init = async () => {
     recipes =  sortAll(recipes);
 
     displayAll(recipes);
+
+    btnCloseFromCurrentInputWithDropdown();
 };
 
 init();
