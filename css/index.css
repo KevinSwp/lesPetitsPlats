@@ -19,6 +19,18 @@ input[type="text"]:focus {
     padding-bottom: 30px;
 }
 
+.btnIngredientHide {
+    display: none !important;
+}
+
+.btnApplianceHide {
+    display: none !important;
+}
+
+.btnUstensilHide {
+    display: none !important;
+}
+
 #tagsFilter {
     /* margin-bottom: 20px; */
     position: relative;
@@ -250,9 +262,6 @@ input[type="text"]:focus {
 
 .dropdown_content {
     display: none;
-    width: 35rem;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
     max-height: 300px;
     overflow-x: auto;
     scrollbar-width: thin;
@@ -271,9 +280,6 @@ input[type="text"]:focus {
 
 .dropdown_contentAppliance {
     display: none;
-    width: 35rem;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
 
 .dropdown_contentAppliance button {
@@ -286,9 +292,6 @@ input[type="text"]:focus {
 
 .dropdown_contentUstensil {
     display: none;
-    width: 35rem;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
 
 .dropdown_contentUstensil button {
@@ -310,6 +313,16 @@ input[type="text"]:focus {
 .dropdownUstensil .btnDropdownUstensil span {
     display: block;
 } 
+
+.blocInput {
+    display: flex;
+}
+.blocInputAppliance {
+    display: flex;
+}
+.blocInputUstensil {
+    display: flex;
+}
 
 .svgIcon .svgDisable{
     width:20px;
@@ -341,31 +354,75 @@ input[type="text"]:focus {
     right: 15px;
 }
 
-.svgIcon .svgEnable{
+
+.svgIconBtn{
     width:20px;
     height:20px;
     fill:white;
     position: absolute;
-    top: 14px;
+    transform: rotate(180deg);
+    top: 20px;
     right: 15px;
+}
+
+.svgIconApplianceBtn{
+    width:20px;
+    height:20px;
+    fill:white;
+    position: absolute;
+    transform: rotate(180deg);
+    top: 20px;
+    right: 15px;
+}
+
+.svgIconUstensilBtn{
+    width:20px;
+    height:20px;
+    fill:white;
+    position: absolute;
+    transform: rotate(180deg);
+    top: 20px;
+    right: 15px;
+}
+
+.formSearchBarFilter button{
+    background-color: transparent;
+    border: none;
+}
+.formSearchBarFilterAppliance button{
+    background-color: transparent;
+    border: none;
+}
+.formSearchBarFilterUstensil button{
+    background-color: transparent;
+    border: none;
+}
+
+.svgIcon .svgEnable{
+    width:20px;
+    height:20px;
+    fill:white;
+    /* position: absolute; */
+    /* top: 20px;
+    right: 15px; */
 }
 
 .svgIconAppliance .svgEnable{
     width:20px;
     height:20px;
     fill:white;
-    position: absolute;
-    top: 14px;
-    right: 15px;
+    /* position: absolute; */
+    /* top: 14px;
+    right: 15px; */
 }
 
 .svgIconUstensil .svgEnable{
     width:20px;
     height:20px;
     fill:white;
-    position: absolute;
-    top: 14px;
-    right: 15px;
+    /* position: absolute; */
+    /* top: 14px;
+    right: 15px; */
 }
 
 .item {
