@@ -654,7 +654,7 @@ const init = async () => {
     // Sort all recipes by keyword, tags 
     recipes =  sortAll(recipes);
 
-    displayAll(recipes)
+    displayAll(recipes);
 };
 
 init();

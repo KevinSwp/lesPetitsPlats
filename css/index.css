@@ -324,7 +324,7 @@ input[type="text"]:focus {
     display: flex;
 }
 
-.svgIcon .svgDisable{
+/* .svgIcon .svgDisable{
     width:20px;
     height:20px;
     fill:white;
@@ -352,7 +352,7 @@ input[type="text"]:focus {
     position: absolute;
     top: 14px;
     right: 15px;
-}
+} */
 
 
 .svgIconBtn{

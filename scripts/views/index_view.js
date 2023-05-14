@@ -26,7 +26,7 @@ export default class IndexView {
                     <form class="formSearchBarFilter">
                         <div class="blocInput">
                             <input class="searchInputFilter" type="text" id="searchFilter" placeholder="Rechercher un ingredient">
-                            <button class="btnCloseFromInput">
+                            <button type="button" class="btnCloseFromInput">
                                 <span class="svgIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
                                         <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
@@ -63,7 +63,7 @@ export default class IndexView {
                     <form class="formSearchBarFilterAppliance">
                         <div class="blocInputAppliance">
                             <input class="searchInputFilterAppliance" type="text" id="searchFilterAppliance" placeholder="Rechercher un appareil">
-                            <button class="btnCloseFromInputAppliance">
+                            <button type="button" class="btnCloseFromInputAppliance">
                                 <span class="svgIconAppliance">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
                                         <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
@@ -100,7 +100,7 @@ export default class IndexView {
                     <form class="formSearchBarFilterUstensil">
                         <div class="blocInputUstensil">
                             <input class="searchInputFilterUstensil" type="text" id="searchFilterUstensil" placeholder="Rechercher un ustensil">
-                            <button class="btnCloseFromInputUstensil">
+                            <button type="button" class="btnCloseFromInputUstensil">
                                 <span class="svgIconUstensil">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">                    
                                         <path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>

@@ -1,4 +1,4 @@
-const closeAllDropdowns = () => {
+export const closeAllDropdowns = () => {
     // Fermer le dropdown des ingrédients
     const ingredientDropdown = document.querySelector(".dropdown_content");
     ingredientDropdown.style.display = "none";
@@ -41,7 +41,7 @@ const openIngredientDropdown = () => {
         selected.classList.add("selectedActive");
         selected.classList.add("btnIngredientHide");
         svg.classList.add("svgEnable");
-        svg.classList.remove("svgDisable");
+        // svg.classList.remove("svgDisable");
     } 
     // else {
     //     option.style.display = "none";
@@ -67,7 +67,7 @@ const openApplianceDropdown = () => {
         selected.classList.add("selectedActive");
         selected.classList.add("btnApplianceHide");
         svg.classList.add("svgEnable");
-        svg.classList.remove("svgDisable");
+        // svg.classList.remove("svgDisable");
     }
     // else {
     //     option.style.display = "none";
@@ -93,7 +93,7 @@ const openUstensilDropdown = () => {
         selected.classList.add("selectedActive");
         selected.classList.add("btnUstensilHide");
         svg.classList.add("svgEnable");
-        svg.classList.remove("svgDisable");
+        // svg.classList.remove("svgDisable");
     }
     // else {
     //     option.style.display = "none";
