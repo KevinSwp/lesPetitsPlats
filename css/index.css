@@ -543,6 +543,8 @@ input[type="text"]:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    max-width: 98%;
+    min-width: 67rem;
 }
 
 .figureRecipe {
