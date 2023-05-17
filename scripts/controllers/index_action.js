@@ -79,7 +79,8 @@ const sortByKeywords = (recipes) => {
     recipeSection.innerHTML = "";
 
     // Display filtered recipes
-    const recipesOK = recipes.map(recipe => {
+    const recipesOK = [];
+    recipes.forEach(recipe => {
         // Check if the recipe name or description includes the search text
         const recipeTitle = recipe.name.toLowerCase();
         const recipeDescription = recipe.description.toLowerCase();
@@ -90,10 +91,9 @@ const sortByKeywords = (recipes) => {
             const recipeCardView = new IndexView(recipe);
             const recipeCard = recipeCardView.getRecipeCardIndex();
             recipeSection.appendChild(recipeCard);
-            return recipe;
+            recipesOK.push(recipe);
         }
-    })
-    .filter(recipe => recipe !== undefined);
+    });
 
     return recipesOK;
 };

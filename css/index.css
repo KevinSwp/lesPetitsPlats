@@ -1,6 +1,9 @@
 body {
     padding: 2rem;
+    margin-left: auto !important;
+    margin-right: auto !important;
     min-width: 70rem;
+    max-width: 92rem;
     font-weight: bold !important;
 }
 
@@ -140,10 +143,16 @@ input[type="text"]:focus {
     margin-bottom: 15px;
 }
 
+.blocRecipesRelative{
+    position: relative;
+}
+
 #blocRecipes{
     position: absolute;
-    top: 23rem;
+    top: 26rem;
     z-index: -1;
+    max-width: 90rem;
+    min-width: 70rem;
 }
 
 #blocFilter {
