@@ -157,7 +157,6 @@ input[type="text"]:focus {
 
 #blocFilter {
     display: flex;
-    top: -100;
     z-index: 100;
 }
 
