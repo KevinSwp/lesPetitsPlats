@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script defer type="module" src="scripts/controllers/index_action.js"></script>
+    <script type="module" src="scripts/controllers/index_action.js"></script>
   </head>
   <body>
     <header>
-        <img class="homePage" src="assets/logo/logo.jpg" class="logo" alt="Les petits plats" aria-label="Accueil">
+        <img class="homePage logo" src="assets/logo/logo.jpg" alt="Les petits plats" aria-label="Accueil">
     </header>
 
     <main id="main">
@@ -28,11 +28,9 @@
           <div id="dropdownFilter"></div>
           <div id="dropdownFilterAppliance" class="mr-4 ml-4"></div>
           <div id="dropdownFilterUstensil"></div>
-        </div class="blocRecipesRelative">
-        <div class="">
-          <div id="blocRecipes">
-            <div class="recipes-list"></div>
-          </div>
+        </div>
+        <div id="blocRecipes">
+          <div class="recipes-list"></div>
         </div>
       </div>
     </main>

@@ -149,7 +149,7 @@ input[type="text"]:focus {
 
 #blocRecipes{
     position: absolute;
-    top: 26rem;
+    top: 24rem;
     z-index: -1;
     max-width: 90rem;
     min-width: 70rem;
