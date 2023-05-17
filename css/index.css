@@ -1,6 +1,9 @@
 body {
     padding: 2rem;
+    margin-left: auto !important;
+    margin-right: auto !important;
     min-width: 70rem;
+    max-width: 92rem;
     font-weight: bold !important;
 }
 
@@ -136,12 +139,25 @@ input[type="text"]:focus {
     margin-bottom: 20px;
 }
 
-/* #blocFR{
-    
-} */
+.searchBarSectionPB {
+    margin-bottom: 15px;
+}
+
+.blocRecipesRelative{
+    position: relative;
+}
+
+#blocRecipes{
+    position: absolute;
+    top: 26rem;
+    z-index: -1;
+    max-width: 90rem;
+    min-width: 70rem;
+}
 
 #blocFilter {
     display: flex;
+    top: -100;
     z-index: 100;
 }
 
@@ -512,8 +528,8 @@ input[type="text"]:focus {
     border-radius: 0.3rem;
 }
 
-.searchBarSectionPB {
-    padding-bottom: 15px;
+.searchBarSection {
+    padding-bottom: 30px;
 }
 
 .searchInput {
@@ -530,12 +546,6 @@ input[type="text"]:focus {
     position: absolute;
     right: 1rem;
     top: 0.5rem;
-}
-
-#blocRecipes{
-    position: absolute;
-    top: 23rem;
-    z-index: -1;
 }
 
 .recipes-list {
