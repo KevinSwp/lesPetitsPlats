@@ -78,25 +78,26 @@ const sortByKeywords = (recipes) => {
     // Empty recipes section
     recipeSection.innerHTML = "";
 
-    // Display filtered recipes
-    const recipesOK = [];
-    recipes.forEach(recipe => {
+    // Filter recipes and build recipe cards
+    const recipesOK = recipes.filter(recipe => {
         // Check if the recipe name or description includes the search text
         const recipeTitle = recipe.name.toLowerCase();
         const recipeDescription = recipe.description.toLowerCase();
-        const includesSearchText = recipeTitle.includes(searchText) || recipeDescription.includes(searchText);
-
-        // If the recipe matches the search criteria, build and display the recipe card
-        if (includesSearchText) {
-            const recipeCardView = new IndexView(recipe);
-            const recipeCard = recipeCardView.getRecipeCardIndex();
-            recipeSection.appendChild(recipeCard);
-            recipesOK.push(recipe);
-        }
+        return recipeTitle.includes(searchText) || recipeDescription.includes(searchText);
+    })
+    
+    .map(recipe => {
+        // Build and display the recipe card
+        const recipeCardView = new IndexView(recipe);
+        const recipeCard = recipeCardView.getRecipeCardIndex();
+        recipeSection.appendChild(recipeCard);
+        return recipe;
     });
 
     return recipesOK;
 };
+
+
 
 /**
  *  Filter recipes based on dropdown ingredient
