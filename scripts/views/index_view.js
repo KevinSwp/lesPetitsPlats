@@ -142,7 +142,7 @@ export default class IndexView {
 
         let content = `
             <figure>
-                <img class="imageRecipe" src="../assets/images/recette.jpg" alt="">
+                <img class="imageRecipe" src="assets/images/recette.jpg" alt="">
                 <figcaption>
                     <div class="title_time">
                         <h1 class="titleRecipe">${this._recipe.name}</h1>
