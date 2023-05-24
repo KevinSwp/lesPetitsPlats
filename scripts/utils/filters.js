@@ -93,16 +93,7 @@ const openUstensilDropdown = () => {
         selected.classList.add("selectedActive");
         selected.classList.add("btnUstensilHide");
         svg.classList.add("svgEnable");
-        // svg.classList.remove("svgDisable");
     }
-    // else {
-    //     option.style.display = "none";
-    //     dropdownPB.classList.remove("dropdownPaddingBorder");
-    //     formSearchBarFilter.style.display = "none";
-    //     selected.classList.remove("selectedActive");
-    //     svg.classList.add("svgDisable");
-    //     svg.classList.remove("svgEnable");
-    // }
 };
 
 /**
