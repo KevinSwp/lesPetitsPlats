@@ -188,36 +188,6 @@ input[type="text"]:focus {
     border-radius: 0.5rem;
 }
 
-/* .dropdown.active1 .selectedActive{
-    border-radius: 5px 5px 0 0;
-}
-
-.dropdownAppliance.active1 .selectedActive{
-    border-radius: 5px 5px 0 0;
-}
-
-.dropdown.active1 .selectedActive::before{
-    content:'';
-    width: 163px;
-    height:1px;
-    margin-left: 0.5rem;
-    background:white;
-    position: absolute;
-    bottom:0;
-    left:0;
-}
-
-.dropdownAppliance.active1 .selectedActive::before{
-    content:'';
-    width: 163px;
-    height:1px;
-    margin-left: 0.5rem;
-    background:white;
-    position: absolute;
-    bottom:0;
-    left:0;
-} */
-
 .btnDropdown {
     width: 180px;
     height: 40px;
@@ -339,37 +309,6 @@ input[type="text"]:focus {
     display: flex;
 }
 
-/* .svgIcon .svgDisable{
-    width:20px;
-    height:20px;
-    fill:white;
-    transform: rotate(180deg);
-    position: absolute;
-    top: 14px;
-    right: 15px;
-}
-
-.svgIconAppliance .svgDisable{
-    width:20px;
-    height:20px;
-    fill:white;
-    transform: rotate(180deg);
-    position: absolute;
-    top: 14px;
-    right: 15px;
-}
-
-.svgIconUstensil .svgDisable{
-    width:20px;
-    height:20px;
-    fill:white;
-    transform: rotate(180deg);
-    position: absolute;
-    top: 14px;
-    right: 15px;
-} */
-
-
 .svgIconBtn{
     width:20px;
     height:20px;
@@ -417,27 +356,18 @@ input[type="text"]:focus {
     width:20px;
     height:20px;
     fill:white;
-    /* position: absolute; */
-    /* top: 20px;
-    right: 15px; */
 }
 
 .svgIconAppliance .svgEnable{
     width:20px;
     height:20px;
     fill:white;
-    /* position: absolute; */
-    /* top: 14px;
-    right: 15px; */
 }
 
 .svgIconUstensil .svgEnable{
     width:20px;
     height:20px;
     fill:white;
-    /* position: absolute; */
-    /* top: 14px;
-    right: 15px; */
 }
 
 .item {
