@@ -97,8 +97,6 @@ const sortByKeywords = (recipes) => {
     return recipesOK;
 };
 
-
-
 /**
  *  Filter recipes based on dropdown ingredient
  */
