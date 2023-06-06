@@ -41,16 +41,7 @@ const openIngredientDropdown = () => {
         selected.classList.add("selectedActive");
         selected.classList.add("btnIngredientHide");
         svg.classList.add("svgEnable");
-        // svg.classList.remove("svgDisable");
     } 
-    // else {
-    //     option.style.display = "none";
-    //     dropdownPB.classList.remove("dropdownPaddingBorder")
-    //     formSearchBarFilter.style.display = "none";
-    //     selected.classList.remove("selectedActive");
-    //     svg.classList.add("svgDisable");
-    //     svg.classList.remove("svgEnable");
-    // }
 };
 
 const openApplianceDropdown = () => {
@@ -67,16 +58,7 @@ const openApplianceDropdown = () => {
         selected.classList.add("selectedActive");
         selected.classList.add("btnApplianceHide");
         svg.classList.add("svgEnable");
-        // svg.classList.remove("svgDisable");
     }
-    // else {
-    //     option.style.display = "none";
-    //     dropdownPB.classList.remove("dropdownPaddingBorder");
-    //     formSearchBarFilter.style.display = "none";
-    //     selected.classList.remove("selectedActive");
-    //     svg.classList.add("svgDisable");
-    //     svg.classList.remove("svgEnable");
-    // }
 };
 
 const openUstensilDropdown = () => {
